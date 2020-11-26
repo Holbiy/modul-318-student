@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,8 +20,8 @@ namespace TransportApp
 		public SearchConnection()
 		{
 			InitializeComponent();
-
-			
+			textBoxDeparture.AutoCompleteMode = AutoCompleteMode.Suggest;
+			textBoxDeparture.AutoCompleteSource = AutoCompleteSource.CustomSource;
 		}
 
 		private void button1_Click(object sender, EventArgs e)
@@ -91,10 +92,6 @@ namespace TransportApp
 			
 		}
 
-		private void buttonDepartureBoard_Click(object sender, EventArgs e)
-		{
-			
-		}
 
 		private void dataGridViewConnections_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
@@ -103,11 +100,80 @@ namespace TransportApp
 
 		private void buttonHome_Click(object sender, EventArgs e)
 		{
-			new Home().Show();
 			this.Hide();
+			Home sistema = new Home();
+			sistema.ShowDialog();
+			this.Close();
 		}
 
-		private void button1_Click_1(object sender, EventArgs e)
+		private void buttonChange_Click(object sender, EventArgs e)
+		{
+			string temp = textBoxArrival.Text;
+			textBoxArrival.Text = textBoxDeparture.Text;
+			textBoxDeparture.Text = temp;
+		}
+
+		private void groupBoxInput_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void dateTimePickerDepartureTime_ValueChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void labelDepartureTime_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void labelArrival_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void labelDeparture_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void textBoxArrival_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void textBoxDeparture_TextChanged(object sender, EventArgs e)
+		{
+			if (textBoxDeparture.Text.Length >= 1)
+			{
+				List<string> temp = new List<string>();
+				foreach (var station in _transport.GetStations(textBoxDeparture.Text).StationList)
+				{
+					temp.Add(station.Name);
+				}
+				var autoComplete = new AutoCompleteStringCollection();
+				autoComplete.AddRange(temp.ToArray());
+				textBoxDeparture.AutoCompleteCustomSource = autoComplete;
+			}
+		}
+
+		private void panelTitle_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void labelTitle_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void panelButtons_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void textBoxDeparture_KeyPress(object sender, KeyPressEventArgs e)
 		{
 
 		}

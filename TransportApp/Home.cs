@@ -24,14 +24,23 @@ namespace TransportApp
 
 		private void buttonSearchConnections_Click(object sender, EventArgs e)
 		{
-			SearchConnection searchConnection = new SearchConnection();
-			searchConnection.Show();
 			this.Hide();
+			SearchConnection sistema = new SearchConnection();
+			sistema.ShowDialog();
+			this.Close();
 		}
 
 		private void buttonNearMe_Click(object sender, EventArgs e)
 		{
 
+		}
+
+		private void buttonDepartureBoard_Click(object sender, EventArgs e)
+		{
+			this.Hide();
+			DepartureBoardcs sistema = new DepartureBoardcs();
+			sistema.ShowDialog();
+			this.Close();
 		}
 	}
 }

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DepartureBoardcs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DepartureBoardcs.Designer.cs">
+      <DependentUpon>DepartureBoardcs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     <Compile Include="SearchConnection.Designer.cs">
       <DependentUpon>SearchConnection.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DepartureBoardcs.resx">
+      <DependentUpon>DepartureBoardcs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
@@ -97,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\img\arrows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\arrows.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

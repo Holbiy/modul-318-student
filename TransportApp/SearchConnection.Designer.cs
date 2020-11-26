@@ -32,7 +32,6 @@ namespace TransportApp
 			this.tableLayoutPanelLayout = new System.Windows.Forms.TableLayoutPanel();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.groupBoxInput = new System.Windows.Forms.GroupBox();
-			this.button1 = new System.Windows.Forms.Button();
 			this.dateTimePickerDepartureTime = new System.Windows.Forms.DateTimePicker();
 			this.labelDepartureTime = new System.Windows.Forms.Label();
 			this.labelArrival = new System.Windows.Forms.Label();
@@ -41,7 +40,6 @@ namespace TransportApp
 			this.textBoxDeparture = new System.Windows.Forms.TextBox();
 			this.panelButtons = new System.Windows.Forms.Panel();
 			this.buttonSearchConnections = new System.Windows.Forms.Button();
-			this.buttonDepartureBoard = new System.Windows.Forms.Button();
 			this.dataGridViewConnections = new System.Windows.Forms.DataGridView();
 			this.columnDeparture = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.columnArrival = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +51,7 @@ namespace TransportApp
 			this.panelTitle = new System.Windows.Forms.Panel();
 			this.labelTitle = new System.Windows.Forms.Label();
 			this.buttonHome = new System.Windows.Forms.Button();
+			this.buttonChange = new System.Windows.Forms.Button();
 			this.tableLayoutPanelLayout.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.groupBoxInput.SuspendLayout();
@@ -99,7 +98,7 @@ namespace TransportApp
 			// 
 			// groupBoxInput
 			// 
-			this.groupBoxInput.Controls.Add(this.button1);
+			this.groupBoxInput.Controls.Add(this.buttonChange);
 			this.groupBoxInput.Controls.Add(this.dateTimePickerDepartureTime);
 			this.groupBoxInput.Controls.Add(this.labelDepartureTime);
 			this.groupBoxInput.Controls.Add(this.labelArrival);
@@ -114,16 +113,7 @@ namespace TransportApp
 			this.groupBoxInput.TabIndex = 0;
 			this.groupBoxInput.TabStop = false;
 			this.groupBoxInput.Text = "Eingabe";
-			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(243, 39);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(48, 42);
-			this.button1.TabIndex = 6;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click_1);
+			this.groupBoxInput.Enter += new System.EventHandler(this.groupBoxInput_Enter);
 			// 
 			// dateTimePickerDepartureTime
 			// 
@@ -131,6 +121,7 @@ namespace TransportApp
 			this.dateTimePickerDepartureTime.Name = "dateTimePickerDepartureTime";
 			this.dateTimePickerDepartureTime.Size = new System.Drawing.Size(200, 22);
 			this.dateTimePickerDepartureTime.TabIndex = 5;
+			this.dateTimePickerDepartureTime.ValueChanged += new System.EventHandler(this.dateTimePickerDepartureTime_ValueChanged);
 			// 
 			// labelDepartureTime
 			// 
@@ -140,6 +131,7 @@ namespace TransportApp
 			this.labelDepartureTime.Size = new System.Drawing.Size(77, 16);
 			this.labelDepartureTime.TabIndex = 4;
 			this.labelDepartureTime.Text = "Abfahrtszeit";
+			this.labelDepartureTime.Click += new System.EventHandler(this.labelDepartureTime_Click);
 			// 
 			// labelArrival
 			// 
@@ -149,6 +141,7 @@ namespace TransportApp
 			this.labelArrival.Size = new System.Drawing.Size(73, 16);
 			this.labelArrival.TabIndex = 3;
 			this.labelArrival.Text = "Ankunftsort";
+			this.labelArrival.Click += new System.EventHandler(this.labelArrival_Click);
 			// 
 			// labelDeparture
 			// 
@@ -158,6 +151,7 @@ namespace TransportApp
 			this.labelDeparture.Size = new System.Drawing.Size(72, 16);
 			this.labelDeparture.TabIndex = 2;
 			this.labelDeparture.Text = "Abfahrtsort";
+			this.labelDeparture.Click += new System.EventHandler(this.labelDeparture_Click);
 			// 
 			// textBoxArrival
 			// 
@@ -165,6 +159,7 @@ namespace TransportApp
 			this.textBoxArrival.Name = "textBoxArrival";
 			this.textBoxArrival.Size = new System.Drawing.Size(178, 22);
 			this.textBoxArrival.TabIndex = 1;
+			this.textBoxArrival.TextChanged += new System.EventHandler(this.textBoxArrival_TextChanged);
 			// 
 			// textBoxDeparture
 			// 
@@ -172,17 +167,19 @@ namespace TransportApp
 			this.textBoxDeparture.Name = "textBoxDeparture";
 			this.textBoxDeparture.Size = new System.Drawing.Size(200, 22);
 			this.textBoxDeparture.TabIndex = 0;
+			this.textBoxDeparture.TextChanged += new System.EventHandler(this.textBoxDeparture_TextChanged);
+			this.textBoxDeparture.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDeparture_KeyPress);
 			// 
 			// panelButtons
 			// 
 			this.panelButtons.Controls.Add(this.buttonSearchConnections);
-			this.panelButtons.Controls.Add(this.buttonDepartureBoard);
 			this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelButtons.Location = new System.Drawing.Point(565, 15);
 			this.panelButtons.Margin = new System.Windows.Forms.Padding(15);
 			this.panelButtons.Name = "panelButtons";
 			this.panelButtons.Size = new System.Drawing.Size(399, 152);
 			this.panelButtons.TabIndex = 1;
+			this.panelButtons.Paint += new System.Windows.Forms.PaintEventHandler(this.panelButtons_Paint);
 			// 
 			// buttonSearchConnections
 			// 
@@ -190,7 +187,7 @@ namespace TransportApp
 			this.buttonSearchConnections.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.buttonSearchConnections.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.buttonSearchConnections.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonSearchConnections.Location = new System.Drawing.Point(0, 68);
+			this.buttonSearchConnections.Location = new System.Drawing.Point(0, 110);
 			this.buttonSearchConnections.Margin = new System.Windows.Forms.Padding(5);
 			this.buttonSearchConnections.Name = "buttonSearchConnections";
 			this.buttonSearchConnections.Size = new System.Drawing.Size(399, 42);
@@ -198,22 +195,6 @@ namespace TransportApp
 			this.buttonSearchConnections.Text = "Verbindungen suchen";
 			this.buttonSearchConnections.UseVisualStyleBackColor = false;
 			this.buttonSearchConnections.Click += new System.EventHandler(this.buttonSearchConnections_Click);
-			// 
-			// buttonDepartureBoard
-			// 
-			this.buttonDepartureBoard.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.buttonDepartureBoard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.buttonDepartureBoard.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.buttonDepartureBoard.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonDepartureBoard.Image = global::TransportApp.Properties.Resources.arrows;
-			this.buttonDepartureBoard.Location = new System.Drawing.Point(0, 110);
-			this.buttonDepartureBoard.Margin = new System.Windows.Forms.Padding(5);
-			this.buttonDepartureBoard.Name = "buttonDepartureBoard";
-			this.buttonDepartureBoard.Size = new System.Drawing.Size(399, 42);
-			this.buttonDepartureBoard.TabIndex = 1;
-			this.buttonDepartureBoard.Text = "Abfahrtstafel";
-			this.buttonDepartureBoard.UseVisualStyleBackColor = false;
-			this.buttonDepartureBoard.Click += new System.EventHandler(this.buttonDepartureBoard_Click);
 			// 
 			// dataGridViewConnections
 			// 
@@ -300,6 +281,7 @@ namespace TransportApp
 			this.panelTitle.Name = "panelTitle";
 			this.panelTitle.Size = new System.Drawing.Size(985, 81);
 			this.panelTitle.TabIndex = 3;
+			this.panelTitle.Paint += new System.Windows.Forms.PaintEventHandler(this.panelTitle_Paint);
 			// 
 			// labelTitle
 			// 
@@ -311,6 +293,7 @@ namespace TransportApp
 			this.labelTitle.TabIndex = 2;
 			this.labelTitle.Text = "Wo soll es hingehen?";
 			this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.labelTitle.Click += new System.EventHandler(this.labelTitle_Click);
 			// 
 			// buttonHome
 			// 
@@ -326,6 +309,16 @@ namespace TransportApp
 			this.buttonHome.Text = "Home";
 			this.buttonHome.UseVisualStyleBackColor = false;
 			this.buttonHome.Click += new System.EventHandler(this.buttonHome_Click);
+			// 
+			// buttonChange
+			// 
+			this.buttonChange.Image = global::TransportApp.Properties.Resources.arrows2;
+			this.buttonChange.Location = new System.Drawing.Point(243, 39);
+			this.buttonChange.Name = "buttonChange";
+			this.buttonChange.Size = new System.Drawing.Size(48, 42);
+			this.buttonChange.TabIndex = 6;
+			this.buttonChange.UseVisualStyleBackColor = true;
+			this.buttonChange.Click += new System.EventHandler(this.buttonChange_Click);
 			// 
 			// SearchConnection
 			// 
@@ -362,7 +355,6 @@ namespace TransportApp
 		private System.Windows.Forms.TextBox textBoxDeparture;
 		private System.Windows.Forms.Panel panelButtons;
 		private System.Windows.Forms.Button buttonSearchConnections;
-		private System.Windows.Forms.Button buttonDepartureBoard;
 		private System.Windows.Forms.DataGridView dataGridViewConnections;
 		private System.Windows.Forms.Panel panelTitle;
 		private System.Windows.Forms.Label labelTitle;
@@ -374,6 +366,6 @@ namespace TransportApp
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnDeparturTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnArrivalTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnDuration;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button buttonChange;
 	}
 }
