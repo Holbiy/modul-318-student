@@ -24,28 +24,13 @@ namespace TransportApp
 			textBoxDeparture.AutoCompleteSource = AutoCompleteSource.CustomSource;
 		}
 
-		private void button1_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void tableLayoutPanelLayout_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
 		private void buttonSearchConnections_Click(object sender, EventArgs e)
 		{
-			
-			
-			if (StationExists(textBoxDeparture.Text))
+
+			StationHandler stationHandler = new StationHandler();
+			if (stationHandler.StationExists(textBoxDeparture.Text))
 			{
-				if (StationExists(textBoxArrival.Text))
+				if (stationHandler.StationExists(textBoxArrival.Text))
 				{
 					_connections = _transport.GetConnections(textBoxDeparture.Text, textBoxArrival.Text);
 					FillDataGrid(_connections);
@@ -61,18 +46,7 @@ namespace TransportApp
 			}
 		}
 
-		private bool StationExists(string StationName)
-		{
-			_stations = _transport.GetStations(StationName);
-			foreach (Station station in _stations.StationList)
-			{
-				if (station.Name == StationName)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
+		
 
 		private void FillDataGrid(Connections connections)
 		{
@@ -93,10 +67,6 @@ namespace TransportApp
 		}
 
 
-		private void dataGridViewConnections_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
-
-		}
 
 		private void buttonHome_Click(object sender, EventArgs e)
 		{
@@ -113,35 +83,6 @@ namespace TransportApp
 			textBoxDeparture.Text = temp;
 		}
 
-		private void groupBoxInput_Enter(object sender, EventArgs e)
-		{
-
-		}
-
-		private void dateTimePickerDepartureTime_ValueChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labelDepartureTime_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labelArrival_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labelDeparture_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void textBoxArrival_TextChanged(object sender, EventArgs e)
-		{
-
-		}
 
 		private void textBoxDeparture_TextChanged(object sender, EventArgs e)
 		{
@@ -156,26 +97,6 @@ namespace TransportApp
 				autoComplete.AddRange(temp.ToArray());
 				textBoxDeparture.AutoCompleteCustomSource = autoComplete;
 			}
-		}
-
-		private void panelTitle_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void labelTitle_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void panelButtons_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void textBoxDeparture_KeyPress(object sender, KeyPressEventArgs e)
-		{
-
 		}
 	}
 }

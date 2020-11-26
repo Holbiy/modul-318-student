@@ -77,7 +77,7 @@ namespace TransportApp
 			this.tableLayoutPanelLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.7666F));
 			this.tableLayoutPanelLayout.Size = new System.Drawing.Size(985, 527);
 			this.tableLayoutPanelLayout.TabIndex = 0;
-			this.tableLayoutPanelLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanelLayout_Paint);
+
 			// 
 			// tableLayoutPanel1
 			// 
@@ -94,7 +94,6 @@ namespace TransportApp
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 182F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(979, 182);
 			this.tableLayoutPanel1.TabIndex = 1;
-			this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
 			// 
 			// groupBoxInput
 			// 
@@ -113,7 +112,6 @@ namespace TransportApp
 			this.groupBoxInput.TabIndex = 0;
 			this.groupBoxInput.TabStop = false;
 			this.groupBoxInput.Text = "Eingabe";
-			this.groupBoxInput.Enter += new System.EventHandler(this.groupBoxInput_Enter);
 			// 
 			// dateTimePickerDepartureTime
 			// 
@@ -121,7 +119,6 @@ namespace TransportApp
 			this.dateTimePickerDepartureTime.Name = "dateTimePickerDepartureTime";
 			this.dateTimePickerDepartureTime.Size = new System.Drawing.Size(200, 22);
 			this.dateTimePickerDepartureTime.TabIndex = 5;
-			this.dateTimePickerDepartureTime.ValueChanged += new System.EventHandler(this.dateTimePickerDepartureTime_ValueChanged);
 			// 
 			// labelDepartureTime
 			// 
@@ -131,7 +128,6 @@ namespace TransportApp
 			this.labelDepartureTime.Size = new System.Drawing.Size(77, 16);
 			this.labelDepartureTime.TabIndex = 4;
 			this.labelDepartureTime.Text = "Abfahrtszeit";
-			this.labelDepartureTime.Click += new System.EventHandler(this.labelDepartureTime_Click);
 			// 
 			// labelArrival
 			// 
@@ -141,7 +137,6 @@ namespace TransportApp
 			this.labelArrival.Size = new System.Drawing.Size(73, 16);
 			this.labelArrival.TabIndex = 3;
 			this.labelArrival.Text = "Ankunftsort";
-			this.labelArrival.Click += new System.EventHandler(this.labelArrival_Click);
 			// 
 			// labelDeparture
 			// 
@@ -151,7 +146,6 @@ namespace TransportApp
 			this.labelDeparture.Size = new System.Drawing.Size(72, 16);
 			this.labelDeparture.TabIndex = 2;
 			this.labelDeparture.Text = "Abfahrtsort";
-			this.labelDeparture.Click += new System.EventHandler(this.labelDeparture_Click);
 			// 
 			// textBoxArrival
 			// 
@@ -159,7 +153,6 @@ namespace TransportApp
 			this.textBoxArrival.Name = "textBoxArrival";
 			this.textBoxArrival.Size = new System.Drawing.Size(178, 22);
 			this.textBoxArrival.TabIndex = 1;
-			this.textBoxArrival.TextChanged += new System.EventHandler(this.textBoxArrival_TextChanged);
 			// 
 			// textBoxDeparture
 			// 
@@ -168,7 +161,6 @@ namespace TransportApp
 			this.textBoxDeparture.Size = new System.Drawing.Size(200, 22);
 			this.textBoxDeparture.TabIndex = 0;
 			this.textBoxDeparture.TextChanged += new System.EventHandler(this.textBoxDeparture_TextChanged);
-			this.textBoxDeparture.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxDeparture_KeyPress);
 			// 
 			// panelButtons
 			// 
@@ -179,7 +171,6 @@ namespace TransportApp
 			this.panelButtons.Name = "panelButtons";
 			this.panelButtons.Size = new System.Drawing.Size(399, 152);
 			this.panelButtons.TabIndex = 1;
-			this.panelButtons.Paint += new System.Windows.Forms.PaintEventHandler(this.panelButtons_Paint);
 			// 
 			// buttonSearchConnections
 			// 
@@ -220,7 +211,6 @@ namespace TransportApp
 			this.dataGridViewConnections.RowTemplate.Height = 24;
 			this.dataGridViewConnections.Size = new System.Drawing.Size(975, 248);
 			this.dataGridViewConnections.TabIndex = 2;
-			this.dataGridViewConnections.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewConnections_CellContentClick);
 			// 
 			// columnDeparture
 			// 
@@ -281,7 +271,6 @@ namespace TransportApp
 			this.panelTitle.Name = "panelTitle";
 			this.panelTitle.Size = new System.Drawing.Size(985, 81);
 			this.panelTitle.TabIndex = 3;
-			this.panelTitle.Paint += new System.Windows.Forms.PaintEventHandler(this.panelTitle_Paint);
 			// 
 			// labelTitle
 			// 
@@ -293,7 +282,6 @@ namespace TransportApp
 			this.labelTitle.TabIndex = 2;
 			this.labelTitle.Text = "Wo soll es hingehen?";
 			this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.labelTitle.Click += new System.EventHandler(this.labelTitle_Click);
 			// 
 			// buttonHome
 			// 

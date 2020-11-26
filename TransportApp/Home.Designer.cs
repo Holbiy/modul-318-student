@@ -60,7 +60,6 @@ namespace TransportApp
 			this.labelTitle.TabIndex = 0;
 			this.labelTitle.Text = "Was wollen Sie tun?";
 			this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.labelTitle.Click += new System.EventHandler(this.labelTitle_Click);
 			// 
 			// contextMenuStrip1
 			// 
@@ -92,7 +91,6 @@ namespace TransportApp
 			this.buttonNearMe.TabIndex = 2;
 			this.buttonNearMe.Text = "Stationen in meiner Umgebung";
 			this.buttonNearMe.UseVisualStyleBackColor = false;
-			this.buttonNearMe.Click += new System.EventHandler(this.buttonNearMe_Click);
 			// 
 			// buttonTakeMeHome
 			// 

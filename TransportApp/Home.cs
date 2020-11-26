@@ -17,10 +17,6 @@ namespace TransportApp
 			InitializeComponent();
 		}
 
-		private void labelTitle_Click(object sender, EventArgs e)
-		{
-
-		}
 
 		private void buttonSearchConnections_Click(object sender, EventArgs e)
 		{
@@ -28,11 +24,6 @@ namespace TransportApp
 			SearchConnection sistema = new SearchConnection();
 			sistema.ShowDialog();
 			this.Close();
-		}
-
-		private void buttonNearMe_Click(object sender, EventArgs e)
-		{
-
 		}
 
 		private void buttonDepartureBoard_Click(object sender, EventArgs e)

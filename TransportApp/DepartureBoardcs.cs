@@ -28,7 +28,8 @@ namespace TransportApp
 
 		private void buttonShowDepartureBoard_Click(object sender, EventArgs e)
 		{
-			if (StationExists(textBoxDeparture.Text))
+			StationHandler stationHandler = new StationHandler();
+			if (stationHandler.StationExists(textBoxDeparture.Text))
 			{
 				StationBoardRoot stationBoardRoot = new StationBoardRoot();
 				stationBoardRoot = _transport.GetStationBoard(textBoxDeparture.Text, "");
@@ -52,19 +53,7 @@ namespace TransportApp
 
 		}
 
-		private bool StationExists(string StationName)
-		{
-			Stations stations = new Stations();
-			stations = _transport.GetStations(StationName);
-			foreach (Station station in stations.StationList)
-			{
-				if (station.Name == StationName)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
+		
 
 		private void buttonHome_Click(object sender, EventArgs e)
 		{
