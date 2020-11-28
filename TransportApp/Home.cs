@@ -28,10 +28,18 @@ namespace TransportApp
 
 		private void buttonDepartureBoard_Click(object sender, EventArgs e)
 		{
+
+
+
 			this.Hide();
 			DepartureBoardcs sistema = new DepartureBoardcs();
 			sistema.ShowDialog();
 			this.Close();
+		}
+
+		private void buttonTakeMeHome_Click(object sender, EventArgs e)
+		{
+			new main().Show();
 		}
 	}
 }

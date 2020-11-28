@@ -20,19 +20,17 @@ namespace TransportApp
 		public SearchConnection()
 		{
 			InitializeComponent();
-			textBoxDeparture.AutoCompleteMode = AutoCompleteMode.Suggest;
-			textBoxDeparture.AutoCompleteSource = AutoCompleteSource.CustomSource;
 		}
 
 		private void buttonSearchConnections_Click(object sender, EventArgs e)
 		{
 
 			StationHandler stationHandler = new StationHandler();
-			if (stationHandler.StationExists(textBoxDeparture.Text))
+			if (stationHandler.StationExists(comboBoxDeparture.Text))
 			{
-				if (stationHandler.StationExists(textBoxArrival.Text))
+				if (stationHandler.StationExists(comboBoxArrival.Text))
 				{
-					_connections = _transport.GetConnections(textBoxDeparture.Text, textBoxArrival.Text);
+					_connections = _transport.GetConnections(comboBoxDeparture.Text, comboBoxArrival.Text, DateTime.Now.ToString("YYYY-MM-DD"), DateTime.Now.ToString("hh:mm"));
 					FillDataGrid(_connections);
 				}
 				else
@@ -78,25 +76,22 @@ namespace TransportApp
 
 		private void buttonChange_Click(object sender, EventArgs e)
 		{
-			string temp = textBoxArrival.Text;
-			textBoxArrival.Text = textBoxDeparture.Text;
-			textBoxDeparture.Text = temp;
+			string temp = comboBoxArrival.Text;
+			comboBoxArrival.Text = comboBoxDeparture.Text;
+			comboBoxDeparture.Text = temp;
+			panelButtons.BringToFront();
 		}
 
-
-		private void textBoxDeparture_TextChanged(object sender, EventArgs e)
+		private void comboBoxDeparture_TextChanged(object sender, EventArgs e)
 		{
-			if (textBoxDeparture.Text.Length >= 1)
-			{
-				List<string> temp = new List<string>();
-				foreach (var station in _transport.GetStations(textBoxDeparture.Text).StationList)
-				{
-					temp.Add(station.Name);
-				}
-				var autoComplete = new AutoCompleteStringCollection();
-				autoComplete.AddRange(temp.ToArray());
-				textBoxDeparture.AutoCompleteCustomSource = autoComplete;
-			}
+			AutoCompletion autoCompletion = new AutoCompletion();
+			autoCompletion.AddSugesstions(comboBoxDeparture);
+		}
+
+		private void comboBoxArrival_TextChanged(object sender, EventArgs e)
+		{
+			AutoCompletion autoCompletion = new AutoCompletion();
+			autoCompletion.AddSugesstions(comboBoxArrival);
 		}
 	}
 }

@@ -18,26 +18,18 @@ namespace TransportApp
 		public DepartureBoardcs()
 		{
 			InitializeComponent();
-			textBoxDeparture.AutoCompleteMode = AutoCompleteMode.Suggest;
-			textBoxDeparture.AutoCompleteSource = AutoCompleteSource.CustomSource;
-			AutoCompleteStringCollection col = new AutoCompleteStringCollection();
-			col.Add("Foo");
-			col.Add("Bar");
-			textBoxDeparture.AutoCompleteCustomSource = col;
 		}
 
 		private void buttonShowDepartureBoard_Click(object sender, EventArgs e)
 		{
 			StationHandler stationHandler = new StationHandler();
-			if (stationHandler.StationExists(textBoxDeparture.Text))
+			if (stationHandler.StationExists(comboBoxDeparture.Text))
 			{
 				StationBoardRoot stationBoardRoot = new StationBoardRoot();
-				stationBoardRoot = _transport.GetStationBoard(textBoxDeparture.Text, "");
+				stationBoardRoot = _transport.GetStationBoard(comboBoxDeparture.Text, "");
 				FillDataGrid(stationBoardRoot);
 			}
 		}
-
-
 
 		private void FillDataGrid(StationBoardRoot stationBoardRoot)
 		{
@@ -45,7 +37,7 @@ namespace TransportApp
 			foreach (StationBoard stationBoard in stationBoardRoot.Entries)
 			{
 				dataGridViewDepartureBoard.Rows.Add(
-					textBoxDeparture.Text,
+					comboBoxDeparture.Text,
 					stationBoard.To,
 					stationBoard.Name
 				);
@@ -53,14 +45,18 @@ namespace TransportApp
 
 		}
 
-		
-
 		private void buttonHome_Click(object sender, EventArgs e)
 		{
 			this.Hide();
 			Home sistema = new Home();
 			sistema.ShowDialog();
 			this.Close();
+		}
+
+		private void comboBoxDeparture_TextChanged(object sender, EventArgs e)
+		{
+			AutoCompletion autoCompletion = new AutoCompletion();
+			autoCompletion.AddSugesstions(comboBoxDeparture);
 		}
 	}
 }

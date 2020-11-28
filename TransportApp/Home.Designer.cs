@@ -46,8 +46,9 @@ namespace TransportApp
 			this.panelTitle.Controls.Add(this.labelTitle);
 			this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panelTitle.Location = new System.Drawing.Point(0, 0);
+			this.panelTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.panelTitle.Name = "panelTitle";
-			this.panelTitle.Size = new System.Drawing.Size(984, 111);
+			this.panelTitle.Size = new System.Drawing.Size(738, 90);
 			this.panelTitle.TabIndex = 0;
 			// 
 			// labelTitle
@@ -55,8 +56,9 @@ namespace TransportApp
 			this.labelTitle.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelTitle.Location = new System.Drawing.Point(0, 0);
+			this.labelTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.labelTitle.Name = "labelTitle";
-			this.labelTitle.Size = new System.Drawing.Size(984, 111);
+			this.labelTitle.Size = new System.Drawing.Size(738, 90);
 			this.labelTitle.TabIndex = 0;
 			this.labelTitle.Text = "Was wollen Sie tun?";
 			this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -72,9 +74,10 @@ namespace TransportApp
 			this.buttonSearchConnections.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.buttonSearchConnections.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.buttonSearchConnections.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonSearchConnections.Location = new System.Drawing.Point(153, 139);
+			this.buttonSearchConnections.Location = new System.Drawing.Point(115, 113);
+			this.buttonSearchConnections.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.buttonSearchConnections.Name = "buttonSearchConnections";
-			this.buttonSearchConnections.Size = new System.Drawing.Size(716, 75);
+			this.buttonSearchConnections.Size = new System.Drawing.Size(537, 61);
 			this.buttonSearchConnections.TabIndex = 1;
 			this.buttonSearchConnections.Text = "Verbindungen suchen";
 			this.buttonSearchConnections.UseVisualStyleBackColor = false;
@@ -85,9 +88,10 @@ namespace TransportApp
 			this.buttonNearMe.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.buttonNearMe.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.buttonNearMe.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonNearMe.Location = new System.Drawing.Point(153, 220);
+			this.buttonNearMe.Location = new System.Drawing.Point(115, 179);
+			this.buttonNearMe.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.buttonNearMe.Name = "buttonNearMe";
-			this.buttonNearMe.Size = new System.Drawing.Size(716, 75);
+			this.buttonNearMe.Size = new System.Drawing.Size(537, 61);
 			this.buttonNearMe.TabIndex = 2;
 			this.buttonNearMe.Text = "Stationen in meiner Umgebung";
 			this.buttonNearMe.UseVisualStyleBackColor = false;
@@ -97,21 +101,24 @@ namespace TransportApp
 			this.buttonTakeMeHome.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.buttonTakeMeHome.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.buttonTakeMeHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonTakeMeHome.Location = new System.Drawing.Point(153, 301);
+			this.buttonTakeMeHome.Location = new System.Drawing.Point(115, 245);
+			this.buttonTakeMeHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.buttonTakeMeHome.Name = "buttonTakeMeHome";
-			this.buttonTakeMeHome.Size = new System.Drawing.Size(716, 75);
+			this.buttonTakeMeHome.Size = new System.Drawing.Size(537, 61);
 			this.buttonTakeMeHome.TabIndex = 3;
 			this.buttonTakeMeHome.Text = "Take me Home";
 			this.buttonTakeMeHome.UseVisualStyleBackColor = false;
+			this.buttonTakeMeHome.Click += new System.EventHandler(this.buttonTakeMeHome_Click);
 			// 
 			// buttonDepartureBoard
 			// 
 			this.buttonDepartureBoard.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.buttonDepartureBoard.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.buttonDepartureBoard.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonDepartureBoard.Location = new System.Drawing.Point(153, 382);
+			this.buttonDepartureBoard.Location = new System.Drawing.Point(115, 310);
+			this.buttonDepartureBoard.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.buttonDepartureBoard.Name = "buttonDepartureBoard";
-			this.buttonDepartureBoard.Size = new System.Drawing.Size(716, 75);
+			this.buttonDepartureBoard.Size = new System.Drawing.Size(537, 61);
 			this.buttonDepartureBoard.TabIndex = 4;
 			this.buttonDepartureBoard.Text = "Abfahrtstafel";
 			this.buttonDepartureBoard.UseVisualStyleBackColor = false;
@@ -120,16 +127,17 @@ namespace TransportApp
 			// Home
 			// 
 			this.AcceptButton = this.buttonSearchConnections;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(984, 461);
+			this.ClientSize = new System.Drawing.Size(738, 375);
 			this.Controls.Add(this.buttonDepartureBoard);
 			this.Controls.Add(this.buttonTakeMeHome);
 			this.Controls.Add(this.buttonNearMe);
 			this.Controls.Add(this.buttonSearchConnections);
 			this.Controls.Add(this.panelTitle);
-			this.MinimumSize = new System.Drawing.Size(1000, 500);
+			this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.MinimumSize = new System.Drawing.Size(754, 414);
 			this.Name = "Home";
 			this.Text = "Home";
 			this.panelTitle.ResumeLayout(false);
