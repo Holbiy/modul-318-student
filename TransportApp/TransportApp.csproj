@@ -138,5 +138,17 @@
   <ItemGroup>
     <None Include="img\logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="img\train.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\nearby.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\map.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

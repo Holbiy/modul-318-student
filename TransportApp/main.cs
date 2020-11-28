@@ -18,6 +18,7 @@ namespace TransportApp
 		public main()
 		{
 			InitializeComponent();
+			NavigationButton(ButtonNavigateSearch);
 		}
 
 
@@ -212,6 +213,17 @@ namespace TransportApp
 			AutoCompletion autoCompletion = new AutoCompletion();
 			autoCompletion.AddSugesstions(comboBoxMapsStation);
 
+		}
+
+		private void tableLayoutPanelLayout_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void comboBoxMapsStation_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				buttonShowMap_Click(this, null);
 		}
 	}
 }
