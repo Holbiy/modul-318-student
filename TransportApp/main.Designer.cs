@@ -30,13 +30,20 @@ namespace TransportApp
 		private void InitializeComponent()
 		{
 			this.tableLayoutPanelLayout = new System.Windows.Forms.TableLayoutPanel();
-			this.panelButtons = new System.Windows.Forms.Panel();
-			this.buttonNearMe = new System.Windows.Forms.Button();
+			this.panelNavigation = new System.Windows.Forms.Panel();
+			this.buttonNavigationMaps = new System.Windows.Forms.Button();
+			this.buttonNavigationNearMe = new System.Windows.Forms.Button();
 			this.buttonNavigateDepartureBoard = new System.Windows.Forms.Button();
 			this.ButtonNavigateSearch = new System.Windows.Forms.Button();
 			this.panelTitle = new System.Windows.Forms.Panel();
+			this.panelMaps = new System.Windows.Forms.Panel();
 			this.labelTitle = new System.Windows.Forms.Label();
 			this.panelContent = new System.Windows.Forms.Panel();
+			this.panelNearMe = new System.Windows.Forms.Panel();
+			this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.ColumnStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ColumnDistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panelSearch = new System.Windows.Forms.Panel();
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -69,12 +76,26 @@ namespace TransportApp
 			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.columnTransport = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.panel1 = new System.Windows.Forms.Panel();
 			this.panelLogo = new System.Windows.Forms.Panel();
+			this.paneLogoImg = new System.Windows.Forms.Panel();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.comboBoxMapsStation = new System.Windows.Forms.ComboBox();
+			this.buttonShowMap = new System.Windows.Forms.Button();
+			this.label2 = new System.Windows.Forms.Label();
+			this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+			this.dataGridView2 = new System.Windows.Forms.DataGridView();
+			this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.webBrowserMap = new System.Windows.Forms.WebBrowser();
 			this.tableLayoutPanelLayout.SuspendLayout();
-			this.panelButtons.SuspendLayout();
+			this.panelNavigation.SuspendLayout();
 			this.panelTitle.SuspendLayout();
+			this.panelMaps.SuspendLayout();
 			this.panelContent.SuspendLayout();
+			this.panelNearMe.SuspendLayout();
+			this.tableLayoutPanel6.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.panelSearch.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -85,6 +106,10 @@ namespace TransportApp
 			this.tableLayoutPanel3.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDepartureBoard)).BeginInit();
+			this.panelLogo.SuspendLayout();
+			this.groupBox2.SuspendLayout();
+			this.tableLayoutPanel5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tableLayoutPanelLayout
@@ -92,7 +117,7 @@ namespace TransportApp
 			this.tableLayoutPanelLayout.ColumnCount = 2;
 			this.tableLayoutPanelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
 			this.tableLayoutPanelLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 82F));
-			this.tableLayoutPanelLayout.Controls.Add(this.panelButtons, 0, 1);
+			this.tableLayoutPanelLayout.Controls.Add(this.panelNavigation, 0, 1);
 			this.tableLayoutPanelLayout.Controls.Add(this.panelTitle, 1, 0);
 			this.tableLayoutPanelLayout.Controls.Add(this.panelContent, 1, 1);
 			this.tableLayoutPanelLayout.Controls.Add(this.panelLogo, 0, 0);
@@ -105,48 +130,76 @@ namespace TransportApp
 			this.tableLayoutPanelLayout.Size = new System.Drawing.Size(800, 450);
 			this.tableLayoutPanelLayout.TabIndex = 0;
 			// 
-			// panelButtons
+			// panelNavigation
 			// 
-			this.panelButtons.BackColor = System.Drawing.Color.LightSlateGray;
-			this.panelButtons.Controls.Add(this.buttonNearMe);
-			this.panelButtons.Controls.Add(this.buttonNavigateDepartureBoard);
-			this.panelButtons.Controls.Add(this.ButtonNavigateSearch);
-			this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelButtons.Location = new System.Drawing.Point(3, 84);
-			this.panelButtons.Name = "panelButtons";
-			this.panelButtons.Size = new System.Drawing.Size(138, 363);
-			this.panelButtons.TabIndex = 0;
+			this.panelNavigation.BackColor = System.Drawing.Color.SlateGray;
+			this.panelNavigation.Controls.Add(this.buttonNavigationMaps);
+			this.panelNavigation.Controls.Add(this.buttonNavigationNearMe);
+			this.panelNavigation.Controls.Add(this.buttonNavigateDepartureBoard);
+			this.panelNavigation.Controls.Add(this.ButtonNavigateSearch);
+			this.panelNavigation.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelNavigation.Location = new System.Drawing.Point(0, 81);
+			this.panelNavigation.Margin = new System.Windows.Forms.Padding(0);
+			this.panelNavigation.Name = "panelNavigation";
+			this.panelNavigation.Size = new System.Drawing.Size(144, 369);
+			this.panelNavigation.TabIndex = 0;
 			// 
-			// buttonNearMe
+			// buttonNavigationMaps
 			// 
-			this.buttonNearMe.Dock = System.Windows.Forms.DockStyle.Top;
-			this.buttonNearMe.Location = new System.Drawing.Point(0, 112);
-			this.buttonNearMe.Name = "buttonNearMe";
-			this.buttonNearMe.Size = new System.Drawing.Size(138, 56);
-			this.buttonNearMe.TabIndex = 2;
-			this.buttonNearMe.Text = "Near me";
-			this.buttonNearMe.UseVisualStyleBackColor = true;
+			this.buttonNavigationMaps.BackColor = System.Drawing.Color.IndianRed;
+			this.buttonNavigationMaps.Dock = System.Windows.Forms.DockStyle.Top;
+			this.buttonNavigationMaps.FlatAppearance.BorderSize = 0;
+			this.buttonNavigationMaps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonNavigationMaps.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonNavigationMaps.Location = new System.Drawing.Point(0, 168);
+			this.buttonNavigationMaps.Name = "buttonNavigationMaps";
+			this.buttonNavigationMaps.Size = new System.Drawing.Size(144, 56);
+			this.buttonNavigationMaps.TabIndex = 3;
+			this.buttonNavigationMaps.Text = "Station auf Karte";
+			this.buttonNavigationMaps.UseVisualStyleBackColor = false;
+			this.buttonNavigationMaps.Click += new System.EventHandler(this.buttonNavigationMaps_Click);
+			// 
+			// buttonNavigationNearMe
+			// 
+			this.buttonNavigationNearMe.BackColor = System.Drawing.Color.Coral;
+			this.buttonNavigationNearMe.Dock = System.Windows.Forms.DockStyle.Top;
+			this.buttonNavigationNearMe.FlatAppearance.BorderSize = 0;
+			this.buttonNavigationNearMe.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonNavigationNearMe.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonNavigationNearMe.Location = new System.Drawing.Point(0, 112);
+			this.buttonNavigationNearMe.Name = "buttonNavigationNearMe";
+			this.buttonNavigationNearMe.Size = new System.Drawing.Size(144, 56);
+			this.buttonNavigationNearMe.TabIndex = 2;
+			this.buttonNavigationNearMe.Text = "Stationen in der Nähe";
+			this.buttonNavigationNearMe.UseVisualStyleBackColor = false;
+			this.buttonNavigationNearMe.Click += new System.EventHandler(this.buttonNavigationNearMe_Click);
 			// 
 			// buttonNavigateDepartureBoard
 			// 
+			this.buttonNavigateDepartureBoard.BackColor = System.Drawing.Color.RoyalBlue;
 			this.buttonNavigateDepartureBoard.Dock = System.Windows.Forms.DockStyle.Top;
 			this.buttonNavigateDepartureBoard.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+			this.buttonNavigateDepartureBoard.FlatAppearance.BorderSize = 0;
 			this.buttonNavigateDepartureBoard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.buttonNavigateDepartureBoard.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.buttonNavigateDepartureBoard.Location = new System.Drawing.Point(0, 56);
 			this.buttonNavigateDepartureBoard.Name = "buttonNavigateDepartureBoard";
-			this.buttonNavigateDepartureBoard.Size = new System.Drawing.Size(138, 56);
+			this.buttonNavigateDepartureBoard.Size = new System.Drawing.Size(144, 56);
 			this.buttonNavigateDepartureBoard.TabIndex = 1;
 			this.buttonNavigateDepartureBoard.Text = "Abfahrtstafel";
-			this.buttonNavigateDepartureBoard.UseVisualStyleBackColor = true;
+			this.buttonNavigateDepartureBoard.UseVisualStyleBackColor = false;
 			this.buttonNavigateDepartureBoard.Click += new System.EventHandler(this.buttonNavigateDepartureBoard_Click);
 			// 
 			// ButtonNavigateSearch
 			// 
-			this.ButtonNavigateSearch.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.ButtonNavigateSearch.BackColor = System.Drawing.Color.OliveDrab;
 			this.ButtonNavigateSearch.Dock = System.Windows.Forms.DockStyle.Top;
+			this.ButtonNavigateSearch.FlatAppearance.BorderSize = 0;
+			this.ButtonNavigateSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.ButtonNavigateSearch.Font = new System.Drawing.Font("Gadugi", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.ButtonNavigateSearch.Location = new System.Drawing.Point(0, 0);
 			this.ButtonNavigateSearch.Name = "ButtonNavigateSearch";
-			this.ButtonNavigateSearch.Size = new System.Drawing.Size(138, 56);
+			this.ButtonNavigateSearch.Size = new System.Drawing.Size(144, 56);
 			this.ButtonNavigateSearch.TabIndex = 0;
 			this.ButtonNavigateSearch.Text = "Verbindungen suchen";
 			this.ButtonNavigateSearch.UseVisualStyleBackColor = false;
@@ -154,35 +207,107 @@ namespace TransportApp
 			// 
 			// panelTitle
 			// 
+			this.panelTitle.BackColor = System.Drawing.Color.OliveDrab;
 			this.panelTitle.Controls.Add(this.labelTitle);
 			this.panelTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelTitle.Location = new System.Drawing.Point(147, 3);
+			this.panelTitle.Location = new System.Drawing.Point(144, 0);
+			this.panelTitle.Margin = new System.Windows.Forms.Padding(0);
 			this.panelTitle.Name = "panelTitle";
-			this.panelTitle.Size = new System.Drawing.Size(650, 75);
+			this.panelTitle.Size = new System.Drawing.Size(656, 81);
 			this.panelTitle.TabIndex = 1;
+			// 
+			// panelMaps
+			// 
+			this.panelMaps.Controls.Add(this.tableLayoutPanel5);
+			this.panelMaps.Controls.Add(this.dataGridView2);
+			this.panelMaps.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelMaps.Location = new System.Drawing.Point(0, 0);
+			this.panelMaps.Name = "panelMaps";
+			this.panelMaps.Size = new System.Drawing.Size(650, 363);
+			this.panelMaps.TabIndex = 0;
 			// 
 			// labelTitle
 			// 
+			this.labelTitle.BackColor = System.Drawing.Color.OliveDrab;
 			this.labelTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.labelTitle.Font = new System.Drawing.Font("Gadugi", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelTitle.Location = new System.Drawing.Point(0, 0);
-			this.labelTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.labelTitle.Margin = new System.Windows.Forms.Padding(0);
 			this.labelTitle.Name = "labelTitle";
-			this.labelTitle.Size = new System.Drawing.Size(650, 75);
-			this.labelTitle.TabIndex = 1;
-			this.labelTitle.Text = "Was wollen Sie tun?";
+			this.labelTitle.Size = new System.Drawing.Size(656, 81);
+			this.labelTitle.TabIndex = 2;
+			this.labelTitle.Text = "Verbindung suchen";
 			this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// panelContent
 			// 
+			this.panelContent.Controls.Add(this.panelMaps);
+			this.panelContent.Controls.Add(this.panelNearMe);
 			this.panelContent.Controls.Add(this.panelSearch);
 			this.panelContent.Controls.Add(this.panelDepartureBoard);
-			this.panelContent.Controls.Add(this.panel1);
 			this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelContent.Location = new System.Drawing.Point(147, 84);
 			this.panelContent.Name = "panelContent";
 			this.panelContent.Size = new System.Drawing.Size(650, 363);
 			this.panelContent.TabIndex = 2;
+			// 
+			// panelNearMe
+			// 
+			this.panelNearMe.Controls.Add(this.tableLayoutPanel6);
+			this.panelNearMe.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelNearMe.Location = new System.Drawing.Point(0, 0);
+			this.panelNearMe.Name = "panelNearMe";
+			this.panelNearMe.Size = new System.Drawing.Size(650, 363);
+			this.panelNearMe.TabIndex = 0;
+			// 
+			// tableLayoutPanel6
+			// 
+			this.tableLayoutPanel6.ColumnCount = 1;
+			this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel6.Controls.Add(this.dataGridView1, 0, 0);
+			this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
+			this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+			this.tableLayoutPanel6.RowCount = 1;
+			this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 363F));
+			this.tableLayoutPanel6.Size = new System.Drawing.Size(650, 363);
+			this.tableLayoutPanel6.TabIndex = 2;
+			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.AllowUserToAddRows = false;
+			this.dataGridView1.AllowUserToDeleteRows = false;
+			this.dataGridView1.AllowUserToResizeColumns = false;
+			this.dataGridView1.AllowUserToResizeRows = false;
+			this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnStation,
+            this.ColumnDistance});
+			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridView1.Location = new System.Drawing.Point(4, 4);
+			this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.ReadOnly = true;
+			this.dataGridView1.RowTemplate.Height = 24;
+			this.dataGridView1.Size = new System.Drawing.Size(642, 355);
+			this.dataGridView1.TabIndex = 2;
+			// 
+			// ColumnStation
+			// 
+			this.ColumnStation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.ColumnStation.HeaderText = "Station";
+			this.ColumnStation.Name = "ColumnStation";
+			this.ColumnStation.ReadOnly = true;
+			// 
+			// ColumnDistance
+			// 
+			this.ColumnDistance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.ColumnDistance.HeaderText = "Entfernung";
+			this.ColumnDistance.Name = "ColumnDistance";
+			this.ColumnDistance.ReadOnly = true;
 			// 
 			// panelSearch
 			// 
@@ -297,7 +422,8 @@ namespace TransportApp
 			// 
 			// buttonSearchChange
 			// 
-			this.buttonSearchChange.Image = global::TransportApp.Properties.Resources.arrows2;
+			this.buttonSearchChange.BackgroundImage = global::TransportApp.Properties.Resources.arrows3;
+			this.buttonSearchChange.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
 			this.buttonSearchChange.Location = new System.Drawing.Point(182, 32);
 			this.buttonSearchChange.Margin = new System.Windows.Forms.Padding(2);
 			this.buttonSearchChange.Name = "buttonSearchChange";
@@ -551,21 +677,145 @@ namespace TransportApp
 			this.columnTransport.Name = "columnTransport";
 			this.columnTransport.ReadOnly = true;
 			// 
-			// panel1
-			// 
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(0, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(650, 363);
-			this.panel1.TabIndex = 0;
-			// 
 			// panelLogo
 			// 
 			this.panelLogo.BackColor = System.Drawing.Color.LightSlateGray;
-			this.panelLogo.Location = new System.Drawing.Point(3, 3);
+			this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.panelLogo.Controls.Add(this.paneLogoImg);
+			this.panelLogo.Location = new System.Drawing.Point(0, 0);
+			this.panelLogo.Margin = new System.Windows.Forms.Padding(0);
 			this.panelLogo.Name = "panelLogo";
-			this.panelLogo.Size = new System.Drawing.Size(138, 75);
+			this.panelLogo.Size = new System.Drawing.Size(144, 81);
 			this.panelLogo.TabIndex = 3;
+			// 
+			// paneLogoImg
+			// 
+			this.paneLogoImg.BackColor = System.Drawing.Color.SlateGray;
+			this.paneLogoImg.BackgroundImage = global::TransportApp.Properties.Resources.logo;
+			this.paneLogoImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+			this.paneLogoImg.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.paneLogoImg.Location = new System.Drawing.Point(0, 0);
+			this.paneLogoImg.Name = "paneLogoImg";
+			this.paneLogoImg.Size = new System.Drawing.Size(144, 81);
+			this.paneLogoImg.TabIndex = 0;
+			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.comboBoxMapsStation);
+			this.groupBox2.Controls.Add(this.buttonShowMap);
+			this.groupBox2.Controls.Add(this.label2);
+			this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.groupBox2.Location = new System.Drawing.Point(11, 12);
+			this.groupBox2.Margin = new System.Windows.Forms.Padding(11, 12, 11, 12);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+			this.groupBox2.Size = new System.Drawing.Size(628, 121);
+			this.groupBox2.TabIndex = 0;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "Eingabe";
+			// 
+			// comboBoxMapsStation
+			// 
+			this.comboBoxMapsStation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+			this.comboBoxMapsStation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+			this.comboBoxMapsStation.FormattingEnabled = true;
+			this.comboBoxMapsStation.Location = new System.Drawing.Point(7, 41);
+			this.comboBoxMapsStation.Name = "comboBoxMapsStation";
+			this.comboBoxMapsStation.Size = new System.Drawing.Size(150, 21);
+			this.comboBoxMapsStation.TabIndex = 4;
+			this.comboBoxMapsStation.TextChanged += new System.EventHandler(this.comboBoxMapsStation_TextChanged);
+			// 
+			// buttonShowMap
+			// 
+			this.buttonShowMap.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.buttonShowMap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.buttonShowMap.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonShowMap.Location = new System.Drawing.Point(7, 69);
+			this.buttonShowMap.Margin = new System.Windows.Forms.Padding(4);
+			this.buttonShowMap.Name = "buttonShowMap";
+			this.buttonShowMap.Size = new System.Drawing.Size(151, 34);
+			this.buttonShowMap.TabIndex = 3;
+			this.buttonShowMap.Text = "Karte abzeigen";
+			this.buttonShowMap.UseVisualStyleBackColor = false;
+			this.buttonShowMap.Click += new System.EventHandler(this.buttonShowMap_Click);
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(4, 24);
+			this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(40, 13);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Station";
+			// 
+			// tableLayoutPanel5
+			// 
+			this.tableLayoutPanel5.ColumnCount = 1;
+			this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel5.Controls.Add(this.groupBox2, 0, 0);
+			this.tableLayoutPanel5.Controls.Add(this.webBrowserMap, 0, 1);
+			this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
+			this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+			this.tableLayoutPanel5.RowCount = 2;
+			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+			this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+			this.tableLayoutPanel5.Size = new System.Drawing.Size(650, 363);
+			this.tableLayoutPanel5.TabIndex = 3;
+			// 
+			// dataGridView2
+			// 
+			this.dataGridView2.AllowUserToAddRows = false;
+			this.dataGridView2.AllowUserToDeleteRows = false;
+			this.dataGridView2.AllowUserToResizeColumns = false;
+			this.dataGridView2.AllowUserToResizeRows = false;
+			this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
+			this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
+			this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridView2.Location = new System.Drawing.Point(0, 0);
+			this.dataGridView2.Margin = new System.Windows.Forms.Padding(4);
+			this.dataGridView2.Name = "dataGridView2";
+			this.dataGridView2.ReadOnly = true;
+			this.dataGridView2.RowTemplate.Height = 24;
+			this.dataGridView2.Size = new System.Drawing.Size(650, 363);
+			this.dataGridView2.TabIndex = 4;
+			// 
+			// dataGridViewTextBoxColumn3
+			// 
+			this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.dataGridViewTextBoxColumn3.HeaderText = "Abfahrtsort";
+			this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+			this.dataGridViewTextBoxColumn3.ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn4
+			// 
+			this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.dataGridViewTextBoxColumn4.HeaderText = "Ankunftsort";
+			this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+			this.dataGridViewTextBoxColumn4.ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn5
+			// 
+			this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.dataGridViewTextBoxColumn5.HeaderText = "Verkehrsmittel";
+			this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+			this.dataGridViewTextBoxColumn5.ReadOnly = true;
+			// 
+			// webBrowserMap
+			// 
+			this.webBrowserMap.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.webBrowserMap.Location = new System.Drawing.Point(3, 148);
+			this.webBrowserMap.MinimumSize = new System.Drawing.Size(20, 20);
+			this.webBrowserMap.Name = "webBrowserMap";
+			this.webBrowserMap.ScriptErrorsSuppressed = true;
+			this.webBrowserMap.Size = new System.Drawing.Size(644, 212);
+			this.webBrowserMap.TabIndex = 1;
 			// 
 			// main
 			// 
@@ -576,9 +826,13 @@ namespace TransportApp
 			this.Name = "main";
 			this.Text = "main";
 			this.tableLayoutPanelLayout.ResumeLayout(false);
-			this.panelButtons.ResumeLayout(false);
+			this.panelNavigation.ResumeLayout(false);
 			this.panelTitle.ResumeLayout(false);
+			this.panelMaps.ResumeLayout(false);
 			this.panelContent.ResumeLayout(false);
+			this.panelNearMe.ResumeLayout(false);
+			this.tableLayoutPanel6.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.panelSearch.ResumeLayout(false);
 			this.tableLayoutPanel2.ResumeLayout(false);
 			this.tableLayoutPanel1.ResumeLayout(false);
@@ -591,6 +845,11 @@ namespace TransportApp
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDepartureBoard)).EndInit();
+			this.panelLogo.ResumeLayout(false);
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
+			this.tableLayoutPanel5.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -598,8 +857,8 @@ namespace TransportApp
 		#endregion
 
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLayout;
-		private System.Windows.Forms.Panel panelButtons;
-		private System.Windows.Forms.Button buttonNearMe;
+		private System.Windows.Forms.Panel panelNavigation;
+		private System.Windows.Forms.Button buttonNavigationNearMe;
 		private System.Windows.Forms.Button buttonNavigateDepartureBoard;
 		private System.Windows.Forms.Button ButtonNavigateSearch;
 		private System.Windows.Forms.Panel panelTitle;
@@ -624,7 +883,7 @@ namespace TransportApp
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnDeparturTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnArrivalTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnDuration;
-		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Panel panelNearMe;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
 		private System.Windows.Forms.GroupBox groupBox1;
@@ -635,9 +894,26 @@ namespace TransportApp
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn columnTransport;
-		private System.Windows.Forms.Label labelTitle;
 		private System.Windows.Forms.DateTimePicker dateTimePickerDepartureTime;
 		private System.Windows.Forms.Button buttonSearchConnections;
 		private System.Windows.Forms.Panel panelLogo;
+		private System.Windows.Forms.Label labelTitle;
+		private System.Windows.Forms.Panel paneLogoImg;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ColumnStation;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ColumnDistance;
+		private System.Windows.Forms.Button buttonNavigationMaps;
+		private System.Windows.Forms.Panel panelMaps;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.ComboBox comboBoxMapsStation;
+		private System.Windows.Forms.Button buttonShowMap;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.WebBrowser webBrowserMap;
+		private System.Windows.Forms.DataGridView dataGridView2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
 	}
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SwissTransport;
+using System.Device.Location;
 
 namespace TransportApp
 {
@@ -23,24 +24,56 @@ namespace TransportApp
 		//
 		//Main
 		//
+
+		//Controls
 		private void ButtonNavigateSearch_Click(object sender, EventArgs e)
 		{
-			panelSearch.BringToFront();
-			ButtonNavigateSearch.BackColor = Color.PaleVioletRed;
-			buttonNavigateDepartureBoard.BackColor = Color.AliceBlue;
-			labelTitle.Text = "Verbindung suchen";
-			dateTimePickerDepartureTime.Value = DateTime.Now;
-			dateTimePickerDepartureDate.Value = DateTime.Now;
+			NavigationButton(ButtonNavigateSearch);
 		}
 
 		private void buttonNavigateDepartureBoard_Click(object sender, EventArgs e)
 		{
-			panelDepartureBoard.BringToFront();
-			ButtonNavigateSearch.BackColor = Color.AliceBlue;
-			buttonNavigateDepartureBoard.BackColor = Color.PaleVioletRed;
-			labelTitle.Text = "Abfahrtstafel";
+			NavigationButton(buttonNavigateDepartureBoard);
 		}
 
+		private void buttonNavigationMaps_Click(object sender, EventArgs e)
+		{
+			NavigationButton(buttonNavigationMaps);
+		}
+
+		private void buttonNavigationNearMe_Click(object sender, EventArgs e)
+		{
+			NavigationButton(buttonNavigationNearMe);
+			GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+			watcher.Start();
+			string temp = watcher.Position.Location.HorizontalAccuracy.ToString();
+			watcher.Stop();
+		}
+
+		//Methoden
+
+		private void NavigationButton(Button button)
+		{
+			labelTitle.BackColor = button.BackColor;
+			labelTitle.Text = button.Text;
+			if (button.Name == "ButtonNavigateSearch")
+			{
+				panelSearch.BringToFront();
+			}
+			else if (button.Name == "buttonNavigateDepartureBoard")
+			{
+				panelDepartureBoard.BringToFront();
+			}
+			else if (button.Name == "buttonNavigationNearMe")
+			{
+				panelNearMe.BringToFront();
+			}
+			else if (button.Name == "buttonNavigationMaps")
+			{
+				panelMaps.BringToFront();
+
+			}
+		}
 
 		//
 		//Search Connections
@@ -151,6 +184,34 @@ namespace TransportApp
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
 			autoCompletion.AddSugesstions(comboBoxDepartureBoardDeparture);
+		}
+		//
+		//Karte Anzeigen
+		//
+
+
+
+		private void buttonShowMap_Click(object sender, EventArgs e)
+		{
+			StationHandler stationHandler = new StationHandler();
+			string link = "http://maps.google.com/maps?q=1%2c1";
+			if (stationHandler.StationExists(comboBoxMapsStation.Text))
+			{
+				Stations stations = new Stations();
+				stations = _transport.GetStations(comboBoxMapsStation.Text);
+				string xCoordinate = stations.StationList[0].Coordinate.XCoordinate.ToString();
+				string yCoordinate = stations.StationList[0].Coordinate.YCoordinate.ToString();
+				link = link + stations.StationList[0].Name;
+				webBrowserMap.Navigate(link);
+			}
+			
+		}
+
+		private void comboBoxMapsStation_TextChanged(object sender, EventArgs e)
+		{
+			AutoCompletion autoCompletion = new AutoCompletion();
+			autoCompletion.AddSugesstions(comboBoxMapsStation);
+
 		}
 	}
 }
