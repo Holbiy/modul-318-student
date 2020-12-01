@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SwissTransport;
 using System.Device.Location;
+using System.Diagnostics;
 using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
@@ -31,7 +25,7 @@ namespace TransportApp
 
 
 		/*------------------------------------------*/
-		//					Main					//
+		//					Navigation				//
 		/*------------------------------------------*/
 
 		//
@@ -94,7 +88,7 @@ namespace TransportApp
 		}
 
 		/*------------------------------------------*/
-		//			Search Connections				//
+		//				 Connections				//
 		/*------------------------------------------*/
 
 		//
@@ -103,11 +97,6 @@ namespace TransportApp
 
 		//Key Pressdown
 
-		private void comboBoxSearchDeparture_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Enter)
-				buttonSearchConnections_Click(this, null);
-		}
 
 		private void dateTimePickerDepartureDate_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -163,44 +152,37 @@ namespace TransportApp
 
 		private void buttonMail_Click(object sender, EventArgs e)
 		{
-			if (dataGridViewConnections.SelectedRows != null)
+			
+			if (dataGridViewConnections.SelectedRows.Count != 0)
 			{
-
-				string mailBody = "<table width='100%' style='border:Solid 1px Black;'>";
-
-				foreach (DataGridViewColumn column in dataGridViewConnections.Columns)
-				{
-					mailBody += "<th>";
-					mailBody += column.HeaderText;
-					mailBody += "<\th>";
-				}
-
+				string message = "Verbindungen:%0D%0A";
+				int i = 1;
 				foreach (DataGridViewRow rows in dataGridViewConnections.SelectedRows)
 				{
-					mailBody += "<tr>";
+					message += "Verbindung " + i++ + ": ";
 					foreach (DataGridViewCell cell in rows.Cells)
 					{
-						mailBody += "<td>";
-						
-						mailBody += cell.Value.ToString();
-						mailBody += "<\td>";
+						message += cell.OwningColumn.HeaderText + " = " + cell.Value + ", ";
 					}
-					mailBody += "<\tr>";
+
+					message += "; %0D%0A";
 				}
 
+				Process.Start("mailto:username@domainname?subject=Verbindungen&body=" + message);
+
+				/*
 				SmtpClient client = new SmtpClient("smtp.gmail.com");
 				client.Port = 587;
 				client.EnableSsl = true;
 				client.DeliveryMethod = SmtpDeliveryMethod.Network;
 				client.Credentials = new NetworkCredential("transportapplikation@gmail.com", "transport123");
 
-				var mail = new MailMessage();
-				mail.From = new MailAddress("transportapplikation@gmail.com");
-				mail.To.Add("dario.hollbach@outlook.com");
+				var mail = new MailMessage("transportapplikation@gmail.com", "dario.hollbach@outlook.com");
 				mail.Subject = "Nachricht";
 				mail.Body = mailBody;
 				mail.IsBodyHtml = true;
-				client.Send(mail);
+				DataGridViewCell dataGridViewCell = new DataGridViewButtonCell();
+				dataGridViewCell.*/
 			}
 
 			
@@ -208,17 +190,16 @@ namespace TransportApp
 
 		//Autocomplete
 
-		private void comboBoxSearchDeparture_TextChanged(object sender, EventArgs e)
+		private void comboBoxConnectionsDeparture_KeyUp(object sender, KeyEventArgs e)
 		{
-			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxConnectionsDeparture);
+			if (e.KeyCode != Keys.Down && e.KeyCode != Keys.Up && e.KeyCode != Keys.Enter && e.KeyCode != Keys.Escape)
+			{
+				AutoCompletion autoCompletion = new AutoCompletion();
+				var combobox = (ComboBox)sender;
+				AutoCompletion.AddSugesstions(combobox);
+			}
 		}
 
-		private void comboBoxSearchArrival_TextChanged(object sender, EventArgs e)
-		{
-			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxConnectionsArrival);
-		}
 
 		/*------------------------------------------*/
 		//				Abfahrtstafel				//
@@ -250,22 +231,22 @@ namespace TransportApp
 			}
 		}
 
-		
-
+		//Autocomplete
 
 		private void comboBoxDepartureBoardDeparture_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxDepartureBoardDeparture);
+			AutoCompletion.AddSugesstions(comboBoxDepartureBoardDeparture);
 		}
+
+		/*------------------------------------------*/
+		//					Maps					//
+		/*------------------------------------------*/
+
 		//
-		//Karte Anzeigen
+		//Events
 		//
 
-
-		//Variabeln
-
-		//Controls
 		private void buttonShowMap_Click(object sender, EventArgs e)
 		{
 			StationHandler stationHandler = new StationHandler();
@@ -273,6 +254,7 @@ namespace TransportApp
 			{
 				gMapControlStation.MapProvider = GMapProviders.GoogleMap;
 				gMapControlStation.Visible = true;
+
 				Stations stations = new Stations();
 				stations = _transport.GetStations(comboBoxMapsStation.Text);
 				double x = stations.StationList[0].Coordinate.XCoordinate;
@@ -281,28 +263,30 @@ namespace TransportApp
 				PointLatLng point = new PointLatLng(x, y);
 
 				gMapControlStation.Position = point;
+
+				//Marker
+
 				GMapMarker marker = new GMarkerGoogle(point, GMarkerGoogleType.red_pushpin);
-
-				//Overlay erzeugen
 				GMapOverlay markers = new GMapOverlay("makers");
-
-				//Alle markes zum Overlay hinzufügen
-				
 				markers.Markers.Add(marker);
-
-				//Overlay covern
 				gMapControlStation.Overlays.Clear();
 				gMapControlStation.Overlays.Add(markers);
 			}
 			
 		}
 
+		//
 		//Methoden
-		private void comboBoxMapsStation_TextChanged(object sender, EventArgs e)
-		{
-			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxMapsStation);
+		//
 
+		private void comboBoxMapsStation_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode != Keys.Down && e.KeyCode != Keys.Up && e.KeyCode != Keys.Enter && e.KeyCode != Keys.Escape)
+			{
+				AutoCompletion autoCompletion = new AutoCompletion();
+				var combobox = (ComboBox)sender;
+				AutoCompletion.AddSugesstions(combobox);
+			}
 		}
 
 
@@ -314,14 +298,22 @@ namespace TransportApp
 
 
 
+		/*------------------------------------------*/
+		//					Near Me					//
+		/*------------------------------------------*/
+
 		//
-		//Near Me
+		//Variablen
 		//
 
-		//Controlls
+		GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+
+		//
+		//Events
+		//
+
 		private void buttonShowNearMe_Click(object sender, EventArgs e)
 		{
-
 			if (watcher.Position.Location.IsUnknown)
 			{
 				MessageBox.Show("Aktueller Standord nicht verfügbar");
@@ -338,27 +330,6 @@ namespace TransportApp
 			watcher.Stop();
 		}
 
-		private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		//Variablen
-		GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
-
 		
-
-
-
-
-
-
-
-
-
-
-
-		//Methoden
-
 	}
 }

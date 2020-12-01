@@ -11,19 +11,37 @@ namespace TransportApp
 	class AutoCompletion
 	{
 		//Membervariabeln
-		private Transport _transport = new Transport();
+		private static Transport _transport = new Transport();
 
 		//Methoden
-		public void AddSugesstions(ComboBox comboBox)
+		public static void AddSugesstions(ComboBox comboBox)
 		{
-			List<string> temp = new List<string>();
-			foreach (var station in _transport.GetStations(comboBox.Text).StationList)
+			if (comboBox.Text.Length >= 0)
 			{
-				temp.Add(station.Name);
+				string text = comboBox.Text;
+				List<string> temp = new List<string>();
+				foreach (var station in _transport.GetStations(comboBox.Text).StationList)
+				{
+					temp.Add(station.Name);
+				}
+				if (temp.Count != 0 && temp.First() != null)
+				{
+					comboBox.Items.Clear();
+					comboBox.Items.Add(comboBox.Text);
+					comboBox.Items.AddRange(temp.ToArray());
+					if (comboBox.DroppedDown == false)
+					{
+						comboBox.DroppedDown = true;
+					}
+					comboBox.SelectionStart = comboBox.Text.Length;
+				}
+				else
+				{
+					comboBox.DroppedDown = false;
+				}
 			}
-			if (temp != null)
-				comboBox.Items.AddRange(temp.ToArray());
 		}
-
 	}
+
+	
 }

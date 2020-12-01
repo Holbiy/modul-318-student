@@ -56,7 +56,7 @@ namespace TransportApp
 		private void comboBoxDeparture_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxDeparture);
+			AutoCompletion.AddSugesstions(comboBoxDeparture);
 		}
 	}
 }

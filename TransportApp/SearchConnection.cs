@@ -85,13 +85,13 @@ namespace TransportApp
 		private void comboBoxDeparture_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxDeparture);
+			AutoCompletion.AddSugesstions(comboBoxDeparture);
 		}
 
 		private void comboBoxArrival_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxArrival);
+			AutoCompletion.AddSugesstions(comboBoxArrival);
 		}
 	}
 }
