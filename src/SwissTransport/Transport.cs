@@ -7,6 +7,26 @@ namespace SwissTransport
 {
     public class Transport : ITransport
     {
+	    public Stations GetStations(string x, string y)
+	    {
+		    x = x.Replace(",", ".");
+		    y = y.Replace(",", ".");
+            var request = CreateWebRequest("http://transport.opendata.ch/v1/locations?x=" + x + "&y=" +y + "&type=station");
+		    var response = request.GetResponse();
+		    var responseStream = response.GetResponseStream();
+		   
+
+            if (responseStream != null)
+		    {
+			    var message = new StreamReader(responseStream).ReadToEnd();
+			    var stations = JsonConvert.DeserializeObject<Stations>(message
+				    , new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+			    return stations;
+		    }
+		    return null;
+        }
+
+
         public Stations GetStations(string query)
         {
             query = System.Uri.EscapeDataString(query);

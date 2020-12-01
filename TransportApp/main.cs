@@ -9,27 +9,38 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SwissTransport;
 using System.Device.Location;
+using GMap.NET;
+using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using System.Net.Mail;
+using System.Net;
 
 namespace TransportApp
 {
 	public partial class main : Form
 	{
 		Transport _transport = new Transport();
+
 		public main()
 		{
 			InitializeComponent();
-			NavigationButton(ButtonNavigateSearch);
+			NavigationButton(ButtonNavigateConnections);
+			watcher.Start();
 		}
 
 
+		/*------------------------------------------*/
+		//					Main					//
+		/*------------------------------------------*/
+
 		//
-		//Main
+		//Events
 		//
 
-		//Controls
 		private void ButtonNavigateSearch_Click(object sender, EventArgs e)
 		{
-			NavigationButton(ButtonNavigateSearch);
+			NavigationButton(ButtonNavigateConnections);
 		}
 
 		private void buttonNavigateDepartureBoard_Click(object sender, EventArgs e)
@@ -45,63 +56,99 @@ namespace TransportApp
 		private void buttonNavigationNearMe_Click(object sender, EventArgs e)
 		{
 			NavigationButton(buttonNavigationNearMe);
-			GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
-			watcher.Start();
-			string temp = watcher.Position.Location.HorizontalAccuracy.ToString();
-			watcher.Stop();
 		}
 
-		//Methoden
+		//
+		//Methods
+		//
 
 		private void NavigationButton(Button button)
 		{
+			foreach (Panel panel in panelContent.Controls)
+			{
+				panel.Enabled = false;
+			}
 			labelTitle.BackColor = button.BackColor;
 			labelTitle.Text = button.Text;
-			if (button.Name == "ButtonNavigateSearch")
+			if (button.Name == "ButtonNavigateConnections")
 			{
-				panelSearch.BringToFront();
+				panelConnections.Enabled = true;
+				panelConnections.BringToFront();
 			}
 			else if (button.Name == "buttonNavigateDepartureBoard")
 			{
+				panelDepartureBoard.Enabled = true;
 				panelDepartureBoard.BringToFront();
 			}
 			else if (button.Name == "buttonNavigationNearMe")
 			{
+				panelNearMe.Enabled = true;
 				panelNearMe.BringToFront();
 			}
 			else if (button.Name == "buttonNavigationMaps")
 			{
+				panelMaps.Enabled = true;
 				panelMaps.BringToFront();
 
 			}
 		}
 
+		/*------------------------------------------*/
+		//			Search Connections				//
+		/*------------------------------------------*/
+
 		//
-		//Search Connections
+		//Events
 		//
 
-		//Variabeln
+		//Key Pressdown
 
-		//Controls
+		private void comboBoxSearchDeparture_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				buttonSearchConnections_Click(this, null);
+		}
+
+		private void dateTimePickerDepartureDate_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				buttonSearchConnections_Click(this, null);
+		}
+
+		private void dateTimePickerDepartureTime_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				buttonSearchConnections_Click(this, null);
+		}
+
+		private void comboBoxSearchArrival_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				buttonSearchConnections_Click(this, null);
+		}
+
+		//Buttons
+
 		private void buttonSearchChange_Click(object sender, EventArgs e)
 		{
-			string temp = comboBoxSearchArrival.Text;
-			comboBoxSearchArrival.Text = comboBoxSearchDeparture.Text;
-			comboBoxSearchDeparture.Text = temp;
+			string temp = comboBoxConnectionsArrival.Text;
+			comboBoxConnectionsArrival.Text = comboBoxConnectionsDeparture.Text;
+			comboBoxConnectionsDeparture.Text = temp;
 		}
 
 		private void buttonSearchConnections_Click(object sender, EventArgs e)
 		{
 			Connections connections = new Connections();
 			StationHandler stationHandler = new StationHandler();
-			if (stationHandler.StationExists(comboBoxSearchDeparture.Text))
+			if (stationHandler.StationExists(comboBoxConnectionsDeparture.Text))
 			{
-				if (stationHandler.StationExists(comboBoxSearchArrival.Text))
+				if (stationHandler.StationExists(comboBoxConnectionsArrival.Text))
 				{
 					string date = dateTimePickerDepartureDate.Value.ToString("yyyy-MM-dd");
 					string time = dateTimePickerDepartureTime.Value.ToString("HH:mm");
-					connections = _transport.GetConnections(comboBoxSearchDeparture.Text, comboBoxSearchArrival.Text, date, time );
-					FillDataGrid(connections);
+					connections = _transport.GetConnections(comboBoxConnectionsDeparture.Text, comboBoxConnectionsArrival.Text, date, time );
+					DataGridViewFiller dataGridViewFiller = new DataGridViewFiller();
+					dataGridViewFiller.FillDataGridConnections(connections, dataGridViewConnections);
 				}
 				else
 				{
@@ -114,46 +161,82 @@ namespace TransportApp
 			}
 		}
 
+		private void buttonMail_Click(object sender, EventArgs e)
+		{
+			if (dataGridViewConnections.SelectedRows != null)
+			{
+
+				string mailBody = "<table width='100%' style='border:Solid 1px Black;'>";
+
+				foreach (DataGridViewColumn column in dataGridViewConnections.Columns)
+				{
+					mailBody += "<th>";
+					mailBody += column.HeaderText;
+					mailBody += "<\th>";
+				}
+
+				foreach (DataGridViewRow rows in dataGridViewConnections.SelectedRows)
+				{
+					mailBody += "<tr>";
+					foreach (DataGridViewCell cell in rows.Cells)
+					{
+						mailBody += "<td>";
+						
+						mailBody += cell.Value.ToString();
+						mailBody += "<\td>";
+					}
+					mailBody += "<\tr>";
+				}
+
+				SmtpClient client = new SmtpClient("smtp.gmail.com");
+				client.Port = 587;
+				client.EnableSsl = true;
+				client.DeliveryMethod = SmtpDeliveryMethod.Network;
+				client.Credentials = new NetworkCredential("transportapplikation@gmail.com", "transport123");
+
+				var mail = new MailMessage();
+				mail.From = new MailAddress("transportapplikation@gmail.com");
+				mail.To.Add("dario.hollbach@outlook.com");
+				mail.Subject = "Nachricht";
+				mail.Body = mailBody;
+				mail.IsBodyHtml = true;
+				client.Send(mail);
+			}
+
+			
+		}
+
+		//Autocomplete
+
 		private void comboBoxSearchDeparture_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxSearchDeparture);
+			autoCompletion.AddSugesstions(comboBoxConnectionsDeparture);
 		}
 
 		private void comboBoxSearchArrival_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
-			autoCompletion.AddSugesstions(comboBoxSearchArrival);
+			autoCompletion.AddSugesstions(comboBoxConnectionsArrival);
 		}
 
-		//Methoden
-
-		private void FillDataGrid(Connections connections)
-		{
-			dataGridViewSearchConnections.Rows.Clear();
-			foreach (Connection connection in connections.ConnectionList)
-			{
-				dataGridViewSearchConnections.Rows.Add(
-					connection.From.Station.Name,
-					connection.To.Station.Name,
-					connection.From.Platform,
-					connection.From.Departure.Substring(0, 10),
-					connection.From.Departure.Substring(11, 8),
-					connection.To.Arrival.Substring(11, 8),
-					connection.Duration
-				);
-			}
-
-		}
+		/*------------------------------------------*/
+		//				Abfahrtstafel				//
+		/*------------------------------------------*/
 
 		//
-		//Abfahrtstafel
+		//Events
 		//
 
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
+		//Key Pressdown
 
+		private void comboBoxDepartureBoardDeparture_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				buttonShowDepartureBoard_Click(this, null);
 		}
+
+		//Buttons
 
 		private void buttonShowDepartureBoard_Click(object sender, EventArgs e)
 		{
@@ -162,23 +245,12 @@ namespace TransportApp
 			{
 				StationBoardRoot stationBoardRoot = new StationBoardRoot();
 				stationBoardRoot = _transport.GetStationBoard(comboBoxDepartureBoardDeparture.Text, "");
-				FillDataGrid(stationBoardRoot);
+				DataGridViewFiller dataGridViewFiller = new DataGridViewFiller();
+				dataGridViewFiller.FillDataGridDepartureBoard(stationBoardRoot, dataGridViewDepartureBoard);
 			}
 		}
 
-		private void FillDataGrid(StationBoardRoot stationBoardRoot)
-		{
-			dataGridViewDepartureBoard.Rows.Clear();
-			foreach (StationBoard stationBoard in stationBoardRoot.Entries)
-			{
-				dataGridViewDepartureBoard.Rows.Add(
-					comboBoxDepartureBoardDeparture.Text,
-					stationBoard.To,
-					stationBoard.Name
-				);
-			}
-
-		}
+		
 
 
 		private void comboBoxDepartureBoardDeparture_TextChanged(object sender, EventArgs e)
@@ -191,23 +263,41 @@ namespace TransportApp
 		//
 
 
+		//Variabeln
 
+		//Controls
 		private void buttonShowMap_Click(object sender, EventArgs e)
 		{
 			StationHandler stationHandler = new StationHandler();
-			string link = "http://maps.google.com/maps?q=1%2c1";
 			if (stationHandler.StationExists(comboBoxMapsStation.Text))
 			{
+				gMapControlStation.MapProvider = GMapProviders.GoogleMap;
+				gMapControlStation.Visible = true;
 				Stations stations = new Stations();
 				stations = _transport.GetStations(comboBoxMapsStation.Text);
-				string xCoordinate = stations.StationList[0].Coordinate.XCoordinate.ToString();
-				string yCoordinate = stations.StationList[0].Coordinate.YCoordinate.ToString();
-				link = link + stations.StationList[0].Name;
-				webBrowserMap.Navigate(link);
+				double x = stations.StationList[0].Coordinate.XCoordinate;
+				double y = stations.StationList[0].Coordinate.YCoordinate;
+
+				PointLatLng point = new PointLatLng(x, y);
+
+				gMapControlStation.Position = point;
+				GMapMarker marker = new GMarkerGoogle(point, GMarkerGoogleType.red_pushpin);
+
+				//Overlay erzeugen
+				GMapOverlay markers = new GMapOverlay("makers");
+
+				//Alle markes zum Overlay hinzufügen
+				
+				markers.Markers.Add(marker);
+
+				//Overlay covern
+				gMapControlStation.Overlays.Clear();
+				gMapControlStation.Overlays.Add(markers);
 			}
 			
 		}
 
+		//Methoden
 		private void comboBoxMapsStation_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
@@ -215,15 +305,60 @@ namespace TransportApp
 
 		}
 
-		private void tableLayoutPanelLayout_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
 
 		private void comboBoxMapsStation_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 				buttonShowMap_Click(this, null);
 		}
+
+
+
+		//
+		//Near Me
+		//
+
+		//Controlls
+		private void buttonShowNearMe_Click(object sender, EventArgs e)
+		{
+
+			if (watcher.Position.Location.IsUnknown)
+			{
+				MessageBox.Show("Aktueller Standord nicht verfügbar");
+			}
+			else
+			{
+				string x = watcher.Position.Location.Latitude.ToString();
+				string y = watcher.Position.Location.Longitude.ToString();
+				Stations stations = new Stations();
+				stations = _transport.GetStations(x, y);
+				DataGridViewFiller dataGridViewFiller = new DataGridViewFiller();
+				dataGridViewFiller.FillDataGridNearMe(stations, dataGridViewNearMe);
+			}
+			watcher.Stop();
+		}
+
+		private void tableLayoutPanel5_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		//Variablen
+		GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+
+		
+
+
+
+
+
+
+
+
+
+
+
+		//Methoden
+
 	}
 }
