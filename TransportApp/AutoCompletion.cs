@@ -16,29 +16,26 @@ namespace TransportApp
 		//Methoden
 		public static void AddSugesstions(ComboBox comboBox)
 		{
-			if (comboBox.Text.Length >= 0)
+			string text = comboBox.Text;
+			List<string> temp = new List<string>();
+			foreach (var station in _transport.GetStations(comboBox.Text).StationList)
 			{
-				string text = comboBox.Text;
-				List<string> temp = new List<string>();
-				foreach (var station in _transport.GetStations(comboBox.Text).StationList)
+				temp.Add(station.Name);
+			}
+			if (temp.Count != 0 && temp.First() != null)
+			{
+				comboBox.Items.Clear();
+				comboBox.Items.Add(comboBox.Text);
+				comboBox.Items.AddRange(temp.ToArray());
+				if (comboBox.DroppedDown == false)
 				{
-					temp.Add(station.Name);
+					comboBox.DroppedDown = true;
 				}
-				if (temp.Count != 0 && temp.First() != null)
-				{
-					comboBox.Items.Clear();
-					comboBox.Items.Add(comboBox.Text);
-					comboBox.Items.AddRange(temp.ToArray());
-					if (comboBox.DroppedDown == false)
-					{
-						comboBox.DroppedDown = true;
-					}
-					comboBox.SelectionStart = comboBox.Text.Length;
-				}
-				else
-				{
-					comboBox.DroppedDown = false;
-				}
+				comboBox.SelectionStart = comboBox.Text.Length;
+			}
+			else
+			{
+				comboBox.DroppedDown = false;
 			}
 		}
 	}

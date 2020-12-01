@@ -62,7 +62,21 @@ namespace TransportApp
 			this.columnDeparturTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.columnArrivalTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.columnDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.panelMail = new System.Windows.Forms.Panel();
+			this.labelMail = new System.Windows.Forms.Label();
+			this.textBoxMail = new System.Windows.Forms.TextBox();
 			this.buttonMail = new System.Windows.Forms.Button();
+			this.panelDepartureBoard = new System.Windows.Forms.Panel();
+			this.tableLayoutPanelDepartureboard = new System.Windows.Forms.TableLayoutPanel();
+			this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+			this.groupBoxDepartureBoardInput = new System.Windows.Forms.GroupBox();
+			this.comboBoxDepartureBoardDeparture = new System.Windows.Forms.ComboBox();
+			this.buttonShowDepartureBoard = new System.Windows.Forms.Button();
+			this.labelDepartureBoardDeparture = new System.Windows.Forms.Label();
+			this.dataGridViewDepartureBoard = new System.Windows.Forms.DataGridView();
+			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.columnTransport = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panelMaps = new System.Windows.Forms.Panel();
 			this.tableLayoutPanelMaps = new System.Windows.Forms.TableLayoutPanel();
 			this.groupBoxMapsInput = new System.Windows.Forms.GroupBox();
@@ -80,17 +94,6 @@ namespace TransportApp
 			this.ColumnStation = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColumnDistance = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.buttonShowNearMe = new System.Windows.Forms.Button();
-			this.panelDepartureBoard = new System.Windows.Forms.Panel();
-			this.tableLayoutPanelDepartureboard = new System.Windows.Forms.TableLayoutPanel();
-			this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-			this.groupBoxDepartureBoardInput = new System.Windows.Forms.GroupBox();
-			this.comboBoxDepartureBoardDeparture = new System.Windows.Forms.ComboBox();
-			this.buttonShowDepartureBoard = new System.Windows.Forms.Button();
-			this.labelDepartureBoardDeparture = new System.Windows.Forms.Label();
-			this.dataGridViewDepartureBoard = new System.Windows.Forms.DataGridView();
-			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.columnTransport = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.panelLogo = new System.Windows.Forms.Panel();
 			this.panelLogoMargin = new System.Windows.Forms.Panel();
 			this.button1 = new System.Windows.Forms.Button();
@@ -103,6 +106,12 @@ namespace TransportApp
 			this.tableLayoutPanelConnection.SuspendLayout();
 			this.groupBoxConnections.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).BeginInit();
+			this.panelMail.SuspendLayout();
+			this.panelDepartureBoard.SuspendLayout();
+			this.tableLayoutPanelDepartureboard.SuspendLayout();
+			this.tableLayoutPanel3.SuspendLayout();
+			this.groupBoxDepartureBoardInput.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDepartureBoard)).BeginInit();
 			this.panelMaps.SuspendLayout();
 			this.tableLayoutPanelMaps.SuspendLayout();
 			this.groupBoxMapsInput.SuspendLayout();
@@ -110,11 +119,6 @@ namespace TransportApp
 			this.panelNearMe.SuspendLayout();
 			this.tableLayoutPanelNearMe.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewNearMe)).BeginInit();
-			this.panelDepartureBoard.SuspendLayout();
-			this.tableLayoutPanelDepartureboard.SuspendLayout();
-			this.tableLayoutPanel3.SuspendLayout();
-			this.groupBoxDepartureBoardInput.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDepartureBoard)).BeginInit();
 			this.panelLogo.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -167,7 +171,7 @@ namespace TransportApp
 			this.buttonNavigationMaps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.buttonNavigationMaps.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.buttonNavigationMaps.UseVisualStyleBackColor = false;
-			this.buttonNavigationMaps.Click += new System.EventHandler(this.buttonNavigationMaps_Click);
+			this.buttonNavigationMaps.Click += new System.EventHandler(this.ButtonNavigate_Click);
 			// 
 			// buttonNavigationNearMe
 			// 
@@ -186,7 +190,7 @@ namespace TransportApp
 			this.buttonNavigationNearMe.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.buttonNavigationNearMe.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.buttonNavigationNearMe.UseVisualStyleBackColor = false;
-			this.buttonNavigationNearMe.Click += new System.EventHandler(this.buttonNavigationNearMe_Click);
+			this.buttonNavigationNearMe.Click += new System.EventHandler(this.ButtonNavigate_Click);
 			// 
 			// buttonNavigateDepartureBoard
 			// 
@@ -206,7 +210,7 @@ namespace TransportApp
 			this.buttonNavigateDepartureBoard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.buttonNavigateDepartureBoard.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.buttonNavigateDepartureBoard.UseVisualStyleBackColor = false;
-			this.buttonNavigateDepartureBoard.Click += new System.EventHandler(this.buttonNavigateDepartureBoard_Click);
+			this.buttonNavigateDepartureBoard.Click += new System.EventHandler(this.ButtonNavigate_Click);
 			// 
 			// ButtonNavigateConnections
 			// 
@@ -225,7 +229,7 @@ namespace TransportApp
 			this.ButtonNavigateConnections.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.ButtonNavigateConnections.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.ButtonNavigateConnections.UseVisualStyleBackColor = false;
-			this.ButtonNavigateConnections.Click += new System.EventHandler(this.ButtonNavigateSearch_Click);
+			this.ButtonNavigateConnections.Click += new System.EventHandler(this.ButtonNavigate_Click);
 			// 
 			// panelTitle
 			// 
@@ -254,9 +258,9 @@ namespace TransportApp
 			// panelContent
 			// 
 			this.panelContent.Controls.Add(this.panelConnections);
+			this.panelContent.Controls.Add(this.panelDepartureBoard);
 			this.panelContent.Controls.Add(this.panelMaps);
 			this.panelContent.Controls.Add(this.panelNearMe);
-			this.panelContent.Controls.Add(this.panelDepartureBoard);
 			this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelContent.Location = new System.Drawing.Point(199, 103);
 			this.panelContent.Name = "panelContent";
@@ -278,15 +282,15 @@ namespace TransportApp
 			this.tableLayoutPanelConnect.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanelConnect.Controls.Add(this.tableLayoutPanelConnection, 0, 0);
 			this.tableLayoutPanelConnect.Controls.Add(this.dataGridViewConnections, 0, 1);
-			this.tableLayoutPanelConnect.Controls.Add(this.buttonMail, 0, 2);
+			this.tableLayoutPanelConnect.Controls.Add(this.panelMail, 0, 2);
 			this.tableLayoutPanelConnect.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanelConnect.Location = new System.Drawing.Point(0, 0);
 			this.tableLayoutPanelConnect.Margin = new System.Windows.Forms.Padding(0);
 			this.tableLayoutPanelConnect.Name = "tableLayoutPanelConnect";
 			this.tableLayoutPanelConnect.RowCount = 3;
-			this.tableLayoutPanelConnect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.40654F));
-			this.tableLayoutPanelConnect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.50254F));
-			this.tableLayoutPanelConnect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+			this.tableLayoutPanelConnect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.06545F));
+			this.tableLayoutPanelConnect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.66924F));
+			this.tableLayoutPanelConnect.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.26531F));
 			this.tableLayoutPanelConnect.Size = new System.Drawing.Size(582, 447);
 			this.tableLayoutPanelConnect.TabIndex = 1;
 			// 
@@ -302,7 +306,7 @@ namespace TransportApp
 			this.tableLayoutPanelConnection.Name = "tableLayoutPanelConnection";
 			this.tableLayoutPanelConnection.RowCount = 1;
 			this.tableLayoutPanelConnection.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanelConnection.Size = new System.Drawing.Size(578, 167);
+			this.tableLayoutPanelConnection.Size = new System.Drawing.Size(578, 161);
 			this.tableLayoutPanelConnection.TabIndex = 1;
 			// 
 			// groupBoxConnections
@@ -321,7 +325,7 @@ namespace TransportApp
 			this.groupBoxConnections.Margin = new System.Windows.Forms.Padding(11, 13, 11, 13);
 			this.groupBoxConnections.Name = "groupBoxConnections";
 			this.groupBoxConnections.Padding = new System.Windows.Forms.Padding(2);
-			this.groupBoxConnections.Size = new System.Drawing.Size(556, 141);
+			this.groupBoxConnections.Size = new System.Drawing.Size(556, 135);
 			this.groupBoxConnections.TabIndex = 0;
 			this.groupBoxConnections.TabStop = false;
 			this.groupBoxConnections.Text = "Eingabe";
@@ -336,7 +340,7 @@ namespace TransportApp
 			this.dateTimePickerDepartureTime.ShowUpDown = true;
 			this.dateTimePickerDepartureTime.Size = new System.Drawing.Size(54, 22);
 			this.dateTimePickerDepartureTime.TabIndex = 3;
-			this.dateTimePickerDepartureTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dateTimePickerDepartureTime_KeyDown);
+			this.dateTimePickerDepartureTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxEnterConnections_KeyDown);
 			// 
 			// buttonShowConnections
 			// 
@@ -350,29 +354,29 @@ namespace TransportApp
 			this.buttonShowConnections.TabIndex = 5;
 			this.buttonShowConnections.Text = "Verbindungen suchen";
 			this.buttonShowConnections.UseVisualStyleBackColor = false;
-			this.buttonShowConnections.Click += new System.EventHandler(this.buttonSearchConnections_Click);
+			this.buttonShowConnections.Click += new System.EventHandler(this.buttonConnections_Click);
 			// 
 			// comboBoxConnectionsDeparture
 			// 
-			this.comboBoxConnectionsDeparture.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.comboBoxConnectionsDeparture.FormattingEnabled = true;
 			this.comboBoxConnectionsDeparture.Location = new System.Drawing.Point(5, 44);
 			this.comboBoxConnectionsDeparture.MaxDropDownItems = 10;
 			this.comboBoxConnectionsDeparture.Name = "comboBoxConnectionsDeparture";
 			this.comboBoxConnectionsDeparture.Size = new System.Drawing.Size(190, 22);
 			this.comboBoxConnectionsDeparture.TabIndex = 0;
-			this.comboBoxConnectionsDeparture.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBoxConnectionsDeparture_KeyUp);
+			this.comboBoxConnectionsDeparture.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxEnterConnections_KeyDown);
+			this.comboBoxConnectionsDeparture.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBoxAutocomplete_KeyUp);
 			// 
 			// comboBoxConnectionsArrival
 			// 
-			this.comboBoxConnectionsArrival.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.comboBoxConnectionsArrival.FormattingEnabled = true;
 			this.comboBoxConnectionsArrival.Location = new System.Drawing.Point(361, 44);
 			this.comboBoxConnectionsArrival.MaxDropDownItems = 100;
 			this.comboBoxConnectionsArrival.Name = "comboBoxConnectionsArrival";
 			this.comboBoxConnectionsArrival.Size = new System.Drawing.Size(190, 22);
 			this.comboBoxConnectionsArrival.TabIndex = 1;
-			this.comboBoxConnectionsArrival.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxConnectionsDeparture_KeyUp);
+			this.comboBoxConnectionsArrival.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxEnterConnections_KeyDown);
+			this.comboBoxConnectionsArrival.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBoxAutocomplete_KeyUp);
 			// 
 			// buttonSwitch
 			// 
@@ -384,7 +388,7 @@ namespace TransportApp
 			this.buttonSwitch.Size = new System.Drawing.Size(87, 37);
 			this.buttonSwitch.TabIndex = 4;
 			this.buttonSwitch.UseVisualStyleBackColor = true;
-			this.buttonSwitch.Click += new System.EventHandler(this.buttonSearchChange_Click);
+			this.buttonSwitch.Click += new System.EventHandler(this.buttonSwitch_Click);
 			// 
 			// dateTimePickerDepartureDate
 			// 
@@ -393,7 +397,7 @@ namespace TransportApp
 			this.dateTimePickerDepartureDate.Name = "dateTimePickerDepartureDate";
 			this.dateTimePickerDepartureDate.Size = new System.Drawing.Size(190, 22);
 			this.dateTimePickerDepartureDate.TabIndex = 2;
-			this.dateTimePickerDepartureDate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dateTimePickerDepartureDate_KeyDown);
+			this.dateTimePickerDepartureDate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxEnterConnections_KeyDown);
 			// 
 			// labelDepartureTime
 			// 
@@ -442,13 +446,13 @@ namespace TransportApp
             this.columnArrivalTime,
             this.columnDuration});
 			this.dataGridViewConnections.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataGridViewConnections.Location = new System.Drawing.Point(4, 175);
+			this.dataGridViewConnections.Location = new System.Drawing.Point(4, 169);
 			this.dataGridViewConnections.Margin = new System.Windows.Forms.Padding(4);
 			this.dataGridViewConnections.Name = "dataGridViewConnections";
 			this.dataGridViewConnections.ReadOnly = true;
 			this.dataGridViewConnections.RowHeadersWidth = 51;
 			this.dataGridViewConnections.RowTemplate.Height = 24;
-			this.dataGridViewConnections.Size = new System.Drawing.Size(574, 226);
+			this.dataGridViewConnections.Size = new System.Drawing.Size(574, 218);
 			this.dataGridViewConnections.TabIndex = 2;
 			// 
 			// columnDeparture
@@ -511,16 +515,182 @@ namespace TransportApp
 			this.columnDuration.Name = "columnDuration";
 			this.columnDuration.ReadOnly = true;
 			// 
+			// panelMail
+			// 
+			this.panelMail.Controls.Add(this.labelMail);
+			this.panelMail.Controls.Add(this.textBoxMail);
+			this.panelMail.Controls.Add(this.buttonMail);
+			this.panelMail.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelMail.Location = new System.Drawing.Point(3, 394);
+			this.panelMail.Name = "panelMail";
+			this.panelMail.Size = new System.Drawing.Size(576, 50);
+			this.panelMail.TabIndex = 3;
+			// 
+			// labelMail
+			// 
+			this.labelMail.AutoSize = true;
+			this.labelMail.Location = new System.Drawing.Point(12, 5);
+			this.labelMail.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.labelMail.Name = "labelMail";
+			this.labelMail.Size = new System.Drawing.Size(39, 14);
+			this.labelMail.TabIndex = 9;
+			this.labelMail.Text = "E-Mail";
+			// 
+			// textBoxMail
+			// 
+			this.textBoxMail.Location = new System.Drawing.Point(15, 22);
+			this.textBoxMail.Name = "textBoxMail";
+			this.textBoxMail.Size = new System.Drawing.Size(259, 22);
+			this.textBoxMail.TabIndex = 7;
+			this.textBoxMail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxEnterMail_KeyDown);
+			// 
 			// buttonMail
 			// 
-			this.buttonMail.Font = new System.Drawing.Font("Gadugi", 9.75F, System.Drawing.FontStyle.Bold);
-			this.buttonMail.Location = new System.Drawing.Point(3, 408);
+			this.buttonMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonMail.Font = new System.Drawing.Font("Gadugi", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonMail.Location = new System.Drawing.Point(280, 22);
 			this.buttonMail.Name = "buttonMail";
-			this.buttonMail.Size = new System.Drawing.Size(181, 35);
-			this.buttonMail.TabIndex = 6;
-			this.buttonMail.Text = "Als Mail versenden";
+			this.buttonMail.Size = new System.Drawing.Size(293, 22);
+			this.buttonMail.TabIndex = 8;
+			this.buttonMail.Text = "Markierte Verbindungen als Mail verschiken";
 			this.buttonMail.UseVisualStyleBackColor = true;
 			this.buttonMail.Click += new System.EventHandler(this.buttonMail_Click);
+			// 
+			// panelDepartureBoard
+			// 
+			this.panelDepartureBoard.Controls.Add(this.tableLayoutPanelDepartureboard);
+			this.panelDepartureBoard.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelDepartureBoard.Location = new System.Drawing.Point(0, 0);
+			this.panelDepartureBoard.Name = "panelDepartureBoard";
+			this.panelDepartureBoard.Size = new System.Drawing.Size(582, 447);
+			this.panelDepartureBoard.TabIndex = 2;
+			// 
+			// tableLayoutPanelDepartureboard
+			// 
+			this.tableLayoutPanelDepartureboard.ColumnCount = 1;
+			this.tableLayoutPanelDepartureboard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanelDepartureboard.Controls.Add(this.tableLayoutPanel3, 0, 0);
+			this.tableLayoutPanelDepartureboard.Controls.Add(this.dataGridViewDepartureBoard, 0, 1);
+			this.tableLayoutPanelDepartureboard.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanelDepartureboard.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanelDepartureboard.Margin = new System.Windows.Forms.Padding(0);
+			this.tableLayoutPanelDepartureboard.Name = "tableLayoutPanelDepartureboard";
+			this.tableLayoutPanelDepartureboard.RowCount = 2;
+			this.tableLayoutPanelDepartureboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.2472F));
+			this.tableLayoutPanelDepartureboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.7528F));
+			this.tableLayoutPanelDepartureboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
+			this.tableLayoutPanelDepartureboard.Size = new System.Drawing.Size(582, 447);
+			this.tableLayoutPanelDepartureboard.TabIndex = 2;
+			// 
+			// tableLayoutPanel3
+			// 
+			this.tableLayoutPanel3.ColumnCount = 1;
+			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
+			this.tableLayoutPanel3.Controls.Add(this.groupBoxDepartureBoardInput, 0, 0);
+			this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 2);
+			this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
+			this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+			this.tableLayoutPanel3.RowCount = 1;
+			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel3.Size = new System.Drawing.Size(578, 184);
+			this.tableLayoutPanel3.TabIndex = 1;
+			// 
+			// groupBoxDepartureBoardInput
+			// 
+			this.groupBoxDepartureBoardInput.Controls.Add(this.comboBoxDepartureBoardDeparture);
+			this.groupBoxDepartureBoardInput.Controls.Add(this.buttonShowDepartureBoard);
+			this.groupBoxDepartureBoardInput.Controls.Add(this.labelDepartureBoardDeparture);
+			this.groupBoxDepartureBoardInput.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.groupBoxDepartureBoardInput.Location = new System.Drawing.Point(11, 13);
+			this.groupBoxDepartureBoardInput.Margin = new System.Windows.Forms.Padding(11, 13, 11, 13);
+			this.groupBoxDepartureBoardInput.Name = "groupBoxDepartureBoardInput";
+			this.groupBoxDepartureBoardInput.Padding = new System.Windows.Forms.Padding(2);
+			this.groupBoxDepartureBoardInput.Size = new System.Drawing.Size(556, 158);
+			this.groupBoxDepartureBoardInput.TabIndex = 0;
+			this.groupBoxDepartureBoardInput.TabStop = false;
+			this.groupBoxDepartureBoardInput.Text = "Eingabe";
+			// 
+			// comboBoxDepartureBoardDeparture
+			// 
+			this.comboBoxDepartureBoardDeparture.FormattingEnabled = true;
+			this.comboBoxDepartureBoardDeparture.Location = new System.Drawing.Point(7, 44);
+			this.comboBoxDepartureBoardDeparture.Name = "comboBoxDepartureBoardDeparture";
+			this.comboBoxDepartureBoardDeparture.Size = new System.Drawing.Size(150, 22);
+			this.comboBoxDepartureBoardDeparture.TabIndex = 0;
+			this.comboBoxDepartureBoardDeparture.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxEnterDepartureTable_KeyDown);
+			this.comboBoxDepartureBoardDeparture.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBoxAutocomplete_KeyUp);
+			// 
+			// buttonShowDepartureBoard
+			// 
+			this.buttonShowDepartureBoard.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.buttonShowDepartureBoard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.buttonShowDepartureBoard.Font = new System.Drawing.Font("Gadugi", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.buttonShowDepartureBoard.Location = new System.Drawing.Point(7, 74);
+			this.buttonShowDepartureBoard.Margin = new System.Windows.Forms.Padding(4);
+			this.buttonShowDepartureBoard.Name = "buttonShowDepartureBoard";
+			this.buttonShowDepartureBoard.Size = new System.Drawing.Size(151, 37);
+			this.buttonShowDepartureBoard.TabIndex = 1;
+			this.buttonShowDepartureBoard.Text = "Tafel Anzeigen";
+			this.buttonShowDepartureBoard.UseVisualStyleBackColor = false;
+			this.buttonShowDepartureBoard.Click += new System.EventHandler(this.buttonShowDepartureBoard_Click);
+			// 
+			// labelDepartureBoardDeparture
+			// 
+			this.labelDepartureBoardDeparture.AutoSize = true;
+			this.labelDepartureBoardDeparture.Location = new System.Drawing.Point(4, 26);
+			this.labelDepartureBoardDeparture.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.labelDepartureBoardDeparture.Name = "labelDepartureBoardDeparture";
+			this.labelDepartureBoardDeparture.Size = new System.Drawing.Size(66, 14);
+			this.labelDepartureBoardDeparture.TabIndex = 2;
+			this.labelDepartureBoardDeparture.Text = "Abfahrtsort";
+			// 
+			// dataGridViewDepartureBoard
+			// 
+			this.dataGridViewDepartureBoard.AllowUserToAddRows = false;
+			this.dataGridViewDepartureBoard.AllowUserToDeleteRows = false;
+			this.dataGridViewDepartureBoard.AllowUserToResizeColumns = false;
+			this.dataGridViewDepartureBoard.AllowUserToResizeRows = false;
+			this.dataGridViewDepartureBoard.BackgroundColor = System.Drawing.Color.White;
+			this.dataGridViewDepartureBoard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewDepartureBoard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.columnTransport});
+			this.dataGridViewDepartureBoard.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridViewDepartureBoard.Location = new System.Drawing.Point(4, 192);
+			this.dataGridViewDepartureBoard.Margin = new System.Windows.Forms.Padding(4);
+			this.dataGridViewDepartureBoard.Name = "dataGridViewDepartureBoard";
+			this.dataGridViewDepartureBoard.ReadOnly = true;
+			this.dataGridViewDepartureBoard.RowHeadersWidth = 51;
+			this.dataGridViewDepartureBoard.RowTemplate.Height = 24;
+			this.dataGridViewDepartureBoard.Size = new System.Drawing.Size(574, 251);
+			this.dataGridViewDepartureBoard.TabIndex = 2;
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.dataGridViewTextBoxColumn1.HeaderText = "Abfahrtsort";
+			this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+			this.dataGridViewTextBoxColumn1.ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.dataGridViewTextBoxColumn2.HeaderText = "Ankunftsort";
+			this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+			this.dataGridViewTextBoxColumn2.ReadOnly = true;
+			// 
+			// columnTransport
+			// 
+			this.columnTransport.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.columnTransport.HeaderText = "Verkehrsmittel";
+			this.columnTransport.MinimumWidth = 6;
+			this.columnTransport.Name = "columnTransport";
+			this.columnTransport.ReadOnly = true;
 			// 
 			// panelMaps
 			// 
@@ -565,15 +735,13 @@ namespace TransportApp
 			// 
 			// comboBoxMapsStation
 			// 
-			this.comboBoxMapsStation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-			this.comboBoxMapsStation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.comboBoxMapsStation.FormattingEnabled = true;
-			this.comboBoxMapsStation.Location = new System.Drawing.Point(7, 44);
+			this.comboBoxMapsStation.Location = new System.Drawing.Point(8, 46);
 			this.comboBoxMapsStation.Name = "comboBoxMapsStation";
 			this.comboBoxMapsStation.Size = new System.Drawing.Size(150, 22);
 			this.comboBoxMapsStation.TabIndex = 0;
-			this.comboBoxMapsStation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxMapsStation_KeyDown);
-			this.comboBoxMapsStation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBoxMapsStation_KeyUp);
+			this.comboBoxMapsStation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxEnterMaps_KeyDown);
+			this.comboBoxMapsStation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.comboBoxAutocomplete_KeyUp);
 			// 
 			// buttonShowMap
 			// 
@@ -745,145 +913,6 @@ namespace TransportApp
 			this.buttonShowNearMe.UseVisualStyleBackColor = true;
 			this.buttonShowNearMe.Click += new System.EventHandler(this.buttonShowNearMe_Click);
 			// 
-			// panelDepartureBoard
-			// 
-			this.panelDepartureBoard.Controls.Add(this.tableLayoutPanelDepartureboard);
-			this.panelDepartureBoard.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panelDepartureBoard.Location = new System.Drawing.Point(0, 0);
-			this.panelDepartureBoard.Name = "panelDepartureBoard";
-			this.panelDepartureBoard.Size = new System.Drawing.Size(582, 447);
-			this.panelDepartureBoard.TabIndex = 2;
-			// 
-			// tableLayoutPanelDepartureboard
-			// 
-			this.tableLayoutPanelDepartureboard.ColumnCount = 1;
-			this.tableLayoutPanelDepartureboard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanelDepartureboard.Controls.Add(this.tableLayoutPanel3, 0, 0);
-			this.tableLayoutPanelDepartureboard.Controls.Add(this.dataGridViewDepartureBoard, 0, 1);
-			this.tableLayoutPanelDepartureboard.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanelDepartureboard.Location = new System.Drawing.Point(0, 0);
-			this.tableLayoutPanelDepartureboard.Margin = new System.Windows.Forms.Padding(0);
-			this.tableLayoutPanelDepartureboard.Name = "tableLayoutPanelDepartureboard";
-			this.tableLayoutPanelDepartureboard.RowCount = 2;
-			this.tableLayoutPanelDepartureboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.2472F));
-			this.tableLayoutPanelDepartureboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.7528F));
-			this.tableLayoutPanelDepartureboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
-			this.tableLayoutPanelDepartureboard.Size = new System.Drawing.Size(582, 447);
-			this.tableLayoutPanelDepartureboard.TabIndex = 2;
-			// 
-			// tableLayoutPanel3
-			// 
-			this.tableLayoutPanel3.ColumnCount = 1;
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-			this.tableLayoutPanel3.Controls.Add(this.groupBoxDepartureBoardInput, 0, 0);
-			this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 2);
-			this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
-			this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-			this.tableLayoutPanel3.RowCount = 1;
-			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel3.Size = new System.Drawing.Size(578, 184);
-			this.tableLayoutPanel3.TabIndex = 1;
-			// 
-			// groupBoxDepartureBoardInput
-			// 
-			this.groupBoxDepartureBoardInput.Controls.Add(this.comboBoxDepartureBoardDeparture);
-			this.groupBoxDepartureBoardInput.Controls.Add(this.buttonShowDepartureBoard);
-			this.groupBoxDepartureBoardInput.Controls.Add(this.labelDepartureBoardDeparture);
-			this.groupBoxDepartureBoardInput.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBoxDepartureBoardInput.Location = new System.Drawing.Point(11, 13);
-			this.groupBoxDepartureBoardInput.Margin = new System.Windows.Forms.Padding(11, 13, 11, 13);
-			this.groupBoxDepartureBoardInput.Name = "groupBoxDepartureBoardInput";
-			this.groupBoxDepartureBoardInput.Padding = new System.Windows.Forms.Padding(2);
-			this.groupBoxDepartureBoardInput.Size = new System.Drawing.Size(556, 158);
-			this.groupBoxDepartureBoardInput.TabIndex = 0;
-			this.groupBoxDepartureBoardInput.TabStop = false;
-			this.groupBoxDepartureBoardInput.Text = "Eingabe";
-			// 
-			// comboBoxDepartureBoardDeparture
-			// 
-			this.comboBoxDepartureBoardDeparture.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-			this.comboBoxDepartureBoardDeparture.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-			this.comboBoxDepartureBoardDeparture.FormattingEnabled = true;
-			this.comboBoxDepartureBoardDeparture.Location = new System.Drawing.Point(7, 44);
-			this.comboBoxDepartureBoardDeparture.Name = "comboBoxDepartureBoardDeparture";
-			this.comboBoxDepartureBoardDeparture.Size = new System.Drawing.Size(150, 22);
-			this.comboBoxDepartureBoardDeparture.TabIndex = 0;
-			this.comboBoxDepartureBoardDeparture.SelectedIndexChanged += new System.EventHandler(this.buttonNavigateDepartureBoard_Click);
-			this.comboBoxDepartureBoardDeparture.TextChanged += new System.EventHandler(this.comboBoxDepartureBoardDeparture_TextChanged);
-			this.comboBoxDepartureBoardDeparture.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxDepartureBoardDeparture_KeyDown);
-			// 
-			// buttonShowDepartureBoard
-			// 
-			this.buttonShowDepartureBoard.BackColor = System.Drawing.SystemColors.ButtonFace;
-			this.buttonShowDepartureBoard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			this.buttonShowDepartureBoard.Font = new System.Drawing.Font("Gadugi", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonShowDepartureBoard.Location = new System.Drawing.Point(7, 74);
-			this.buttonShowDepartureBoard.Margin = new System.Windows.Forms.Padding(4);
-			this.buttonShowDepartureBoard.Name = "buttonShowDepartureBoard";
-			this.buttonShowDepartureBoard.Size = new System.Drawing.Size(151, 37);
-			this.buttonShowDepartureBoard.TabIndex = 1;
-			this.buttonShowDepartureBoard.Text = "Tafel Anzeigen";
-			this.buttonShowDepartureBoard.UseVisualStyleBackColor = false;
-			this.buttonShowDepartureBoard.Click += new System.EventHandler(this.buttonShowDepartureBoard_Click);
-			// 
-			// labelDepartureBoardDeparture
-			// 
-			this.labelDepartureBoardDeparture.AutoSize = true;
-			this.labelDepartureBoardDeparture.Location = new System.Drawing.Point(4, 26);
-			this.labelDepartureBoardDeparture.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-			this.labelDepartureBoardDeparture.Name = "labelDepartureBoardDeparture";
-			this.labelDepartureBoardDeparture.Size = new System.Drawing.Size(66, 14);
-			this.labelDepartureBoardDeparture.TabIndex = 2;
-			this.labelDepartureBoardDeparture.Text = "Abfahrtsort";
-			// 
-			// dataGridViewDepartureBoard
-			// 
-			this.dataGridViewDepartureBoard.AllowUserToAddRows = false;
-			this.dataGridViewDepartureBoard.AllowUserToDeleteRows = false;
-			this.dataGridViewDepartureBoard.AllowUserToResizeColumns = false;
-			this.dataGridViewDepartureBoard.AllowUserToResizeRows = false;
-			this.dataGridViewDepartureBoard.BackgroundColor = System.Drawing.Color.White;
-			this.dataGridViewDepartureBoard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewDepartureBoard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.columnTransport});
-			this.dataGridViewDepartureBoard.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataGridViewDepartureBoard.Location = new System.Drawing.Point(4, 192);
-			this.dataGridViewDepartureBoard.Margin = new System.Windows.Forms.Padding(4);
-			this.dataGridViewDepartureBoard.Name = "dataGridViewDepartureBoard";
-			this.dataGridViewDepartureBoard.ReadOnly = true;
-			this.dataGridViewDepartureBoard.RowHeadersWidth = 51;
-			this.dataGridViewDepartureBoard.RowTemplate.Height = 24;
-			this.dataGridViewDepartureBoard.Size = new System.Drawing.Size(574, 251);
-			this.dataGridViewDepartureBoard.TabIndex = 2;
-			// 
-			// dataGridViewTextBoxColumn1
-			// 
-			this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.dataGridViewTextBoxColumn1.HeaderText = "Abfahrtsort";
-			this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-			this.dataGridViewTextBoxColumn1.ReadOnly = true;
-			// 
-			// dataGridViewTextBoxColumn2
-			// 
-			this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.dataGridViewTextBoxColumn2.HeaderText = "Ankunftsort";
-			this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-			this.dataGridViewTextBoxColumn2.ReadOnly = true;
-			// 
-			// columnTransport
-			// 
-			this.columnTransport.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.columnTransport.HeaderText = "Verkehrsmittel";
-			this.columnTransport.MinimumWidth = 6;
-			this.columnTransport.Name = "columnTransport";
-			this.columnTransport.ReadOnly = true;
-			// 
 			// panelLogo
 			// 
 			this.panelLogo.BackColor = System.Drawing.Color.Gray;
@@ -937,6 +966,14 @@ namespace TransportApp
 			this.groupBoxConnections.ResumeLayout(false);
 			this.groupBoxConnections.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewConnections)).EndInit();
+			this.panelMail.ResumeLayout(false);
+			this.panelMail.PerformLayout();
+			this.panelDepartureBoard.ResumeLayout(false);
+			this.tableLayoutPanelDepartureboard.ResumeLayout(false);
+			this.tableLayoutPanel3.ResumeLayout(false);
+			this.groupBoxDepartureBoardInput.ResumeLayout(false);
+			this.groupBoxDepartureBoardInput.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDepartureBoard)).EndInit();
 			this.panelMaps.ResumeLayout(false);
 			this.tableLayoutPanelMaps.ResumeLayout(false);
 			this.groupBoxMapsInput.ResumeLayout(false);
@@ -945,12 +982,6 @@ namespace TransportApp
 			this.panelNearMe.ResumeLayout(false);
 			this.tableLayoutPanelNearMe.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewNearMe)).EndInit();
-			this.panelDepartureBoard.ResumeLayout(false);
-			this.tableLayoutPanelDepartureboard.ResumeLayout(false);
-			this.tableLayoutPanel3.ResumeLayout(false);
-			this.groupBoxDepartureBoardInput.ResumeLayout(false);
-			this.groupBoxDepartureBoardInput.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridViewDepartureBoard)).EndInit();
 			this.panelLogo.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -1011,7 +1042,6 @@ namespace TransportApp
 		private System.Windows.Forms.Panel panelLogoMargin;
 		private System.Windows.Forms.Button buttonShowNearMe;
 		private GMap.NET.WindowsForms.GMapControl gMapControlStation;
-		private Button buttonMail;
 		private Button button1;
 		private DataGridViewTextBoxColumn columnDeparture;
 		private DataGridViewTextBoxColumn columnArrival;
@@ -1020,5 +1050,9 @@ namespace TransportApp
 		private DataGridViewTextBoxColumn columnDeparturTime;
 		private DataGridViewTextBoxColumn columnArrivalTime;
 		private DataGridViewTextBoxColumn columnDuration;
+		private Panel panelMail;
+		private Label labelMail;
+		private TextBox textBoxMail;
+		private Button buttonMail;
 	}
 }

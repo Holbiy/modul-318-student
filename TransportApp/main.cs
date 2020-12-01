@@ -10,6 +10,21 @@ using GMap.NET.WindowsForms.Markers;
 using System.Net.Mail;
 using System.Net;
 
+
+
+
+
+
+
+
+//Probleme:
+//
+//Kein Netzwerk
+//Eingabe von Firmen
+//
+//
+
+
 namespace TransportApp
 {
 	public partial class main : Form
@@ -25,31 +40,28 @@ namespace TransportApp
 
 
 		/*------------------------------------------*/
-		//					Navigation				//
+		//					General					//
 		/*------------------------------------------*/
 
 		//
 		//Events
 		//
 
-		private void ButtonNavigateSearch_Click(object sender, EventArgs e)
+		//Navigation
+		private void ButtonNavigate_Click(object sender, EventArgs e)
 		{
-			NavigationButton(ButtonNavigateConnections);
+			var button = (Button) sender;
+			NavigationButton(button);
 		}
 
-		private void buttonNavigateDepartureBoard_Click(object sender, EventArgs e)
+		//Autocomplete
+		private void comboBoxAutocomplete_KeyUp(object sender, KeyEventArgs e)
 		{
-			NavigationButton(buttonNavigateDepartureBoard);
-		}
-
-		private void buttonNavigationMaps_Click(object sender, EventArgs e)
-		{
-			NavigationButton(buttonNavigationMaps);
-		}
-
-		private void buttonNavigationNearMe_Click(object sender, EventArgs e)
-		{
-			NavigationButton(buttonNavigationNearMe);
+			if (e.KeyCode != Keys.Down && e.KeyCode != Keys.Up && e.KeyCode != Keys.Enter && e.KeyCode != Keys.Escape)
+			{
+				var combobox = (ComboBox)sender;
+				AutoCompletion.AddSugesstions(combobox);
+			}
 		}
 
 		//
@@ -97,35 +109,29 @@ namespace TransportApp
 
 		//Key Pressdown
 
-
-		private void dateTimePickerDepartureDate_KeyDown(object sender, KeyEventArgs e)
+		private void comboBoxEnterConnections_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
-				buttonSearchConnections_Click(this, null);
+				buttonConnections_Click(this, null);
 		}
 
-		private void dateTimePickerDepartureTime_KeyDown(object sender, KeyEventArgs e)
+		private void textBoxEnterMail_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
-				buttonSearchConnections_Click(this, null);
+				buttonMail_Click(this, null);
 		}
 
-		private void comboBoxSearchArrival_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Enter)
-				buttonSearchConnections_Click(this, null);
-		}
 
 		//Buttons
 
-		private void buttonSearchChange_Click(object sender, EventArgs e)
+		private void buttonSwitch_Click(object sender, EventArgs e)
 		{
 			string temp = comboBoxConnectionsArrival.Text;
 			comboBoxConnectionsArrival.Text = comboBoxConnectionsDeparture.Text;
 			comboBoxConnectionsDeparture.Text = temp;
 		}
 
-		private void buttonSearchConnections_Click(object sender, EventArgs e)
+		private void buttonConnections_Click(object sender, EventArgs e)
 		{
 			Connections connections = new Connections();
 			StationHandler stationHandler = new StationHandler();
@@ -136,8 +142,15 @@ namespace TransportApp
 					string date = dateTimePickerDepartureDate.Value.ToString("yyyy-MM-dd");
 					string time = dateTimePickerDepartureTime.Value.ToString("HH:mm");
 					connections = _transport.GetConnections(comboBoxConnectionsDeparture.Text, comboBoxConnectionsArrival.Text, date, time );
-					DataGridViewFiller dataGridViewFiller = new DataGridViewFiller();
-					dataGridViewFiller.FillDataGridConnections(connections, dataGridViewConnections);
+					if (connections.ConnectionList.Count != 0)
+					{
+						DataGridViewFiller dataGridViewFiller = new DataGridViewFiller();
+						dataGridViewFiller.FillDataGridConnections(connections, dataGridViewConnections);
+					}
+					else
+					{
+						MessageBox.Show("Keine Verbindungen gefunden.");
+					}
 				}
 				else
 				{
@@ -152,25 +165,35 @@ namespace TransportApp
 
 		private void buttonMail_Click(object sender, EventArgs e)
 		{
-			
-			if (dataGridViewConnections.SelectedRows.Count != 0)
+			if (textBoxMail.Text != string.Empty)
 			{
-				string message = "Verbindungen:%0D%0A";
-				int i = 1;
-				foreach (DataGridViewRow rows in dataGridViewConnections.SelectedRows)
+				if (dataGridViewConnections.SelectedRows.Count != 0)
 				{
-					message += "Verbindung " + i++ + ": ";
-					foreach (DataGridViewCell cell in rows.Cells)
+					string message = "Verbindungen:%0D%0A";
+					int i = 1;
+					foreach (DataGridViewRow rows in dataGridViewConnections.SelectedRows)
 					{
-						message += cell.OwningColumn.HeaderText + " = " + cell.Value + ", ";
+						message += "Verbindung " + i++ + ": ";
+						foreach (DataGridViewCell cell in rows.Cells)
+						{
+							message += cell.OwningColumn.HeaderText + " = " + cell.Value;
+							if (cell.ColumnIndex + 1 != rows.Cells.Count)
+								message += ", ";
+						}
+						message += "%0D%0A";
 					}
-
-					message += "; %0D%0A";
+					Process.Start("mailto:" + textBoxMail.Text + "?subject=Verbindungen&body=" + message);
 				}
-
-				Process.Start("mailto:username@domainname?subject=Verbindungen&body=" + message);
-
-				/*
+				else
+				{
+					MessageBox.Show("Keine Verbindungen wurden markiert.");
+				}
+			}
+			else
+			{
+				MessageBox.Show("Keine E-Mail wurde angegeben.");
+			}
+			/*
 				SmtpClient client = new SmtpClient("smtp.gmail.com");
 				client.Port = 587;
 				client.EnableSsl = true;
@@ -183,22 +206,9 @@ namespace TransportApp
 				mail.IsBodyHtml = true;
 				DataGridViewCell dataGridViewCell = new DataGridViewButtonCell();
 				dataGridViewCell.*/
-			}
-
-			
 		}
 
-		//Autocomplete
 
-		private void comboBoxConnectionsDeparture_KeyUp(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode != Keys.Down && e.KeyCode != Keys.Up && e.KeyCode != Keys.Enter && e.KeyCode != Keys.Escape)
-			{
-				AutoCompletion autoCompletion = new AutoCompletion();
-				var combobox = (ComboBox)sender;
-				AutoCompletion.AddSugesstions(combobox);
-			}
-		}
 
 
 		/*------------------------------------------*/
@@ -210,8 +220,7 @@ namespace TransportApp
 		//
 
 		//Key Pressdown
-
-		private void comboBoxDepartureBoardDeparture_KeyDown(object sender, KeyEventArgs e)
+		private void comboBoxEnterDepartureTable_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 				buttonShowDepartureBoard_Click(this, null);
@@ -231,14 +240,6 @@ namespace TransportApp
 			}
 		}
 
-		//Autocomplete
-
-		private void comboBoxDepartureBoardDeparture_TextChanged(object sender, EventArgs e)
-		{
-			AutoCompletion autoCompletion = new AutoCompletion();
-			AutoCompletion.AddSugesstions(comboBoxDepartureBoardDeparture);
-		}
-
 		/*------------------------------------------*/
 		//					Maps					//
 		/*------------------------------------------*/
@@ -247,12 +248,19 @@ namespace TransportApp
 		//Events
 		//
 
+		private void comboBoxEnterMaps_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+				buttonShowMap_Click(this, null);
+		}
+
 		private void buttonShowMap_Click(object sender, EventArgs e)
 		{
 			StationHandler stationHandler = new StationHandler();
 			if (stationHandler.StationExists(comboBoxMapsStation.Text))
 			{
 				gMapControlStation.MapProvider = GMapProviders.GoogleMap;
+				gMapControlStation.DragButton = MouseButtons.Left;
 				gMapControlStation.Visible = true;
 
 				Stations stations = new Stations();
@@ -274,29 +282,6 @@ namespace TransportApp
 			}
 			
 		}
-
-		//
-		//Methoden
-		//
-
-		private void comboBoxMapsStation_KeyUp(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode != Keys.Down && e.KeyCode != Keys.Up && e.KeyCode != Keys.Enter && e.KeyCode != Keys.Escape)
-			{
-				AutoCompletion autoCompletion = new AutoCompletion();
-				var combobox = (ComboBox)sender;
-				AutoCompletion.AddSugesstions(combobox);
-			}
-		}
-
-
-		private void comboBoxMapsStation_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Enter)
-				buttonShowMap_Click(this, null);
-		}
-
-
 
 		/*------------------------------------------*/
 		//					Near Me					//
@@ -329,7 +314,5 @@ namespace TransportApp
 			}
 			watcher.Stop();
 		}
-
-		
 	}
 }

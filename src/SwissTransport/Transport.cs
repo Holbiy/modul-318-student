@@ -30,7 +30,8 @@ namespace SwissTransport
         public Stations GetStations(string query)
         {
             query = System.Uri.EscapeDataString(query);
-            var request = CreateWebRequest("http://transport.opendata.ch/v1/locations?query=" + query);
+            var request = CreateWebRequest("http://transport.opendata.ch/v1/locations?query=" + query + "");
+            
             var response = request.GetResponse();
             var responseStream = response.GetResponseStream();
 
