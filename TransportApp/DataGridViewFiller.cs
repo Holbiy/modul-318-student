@@ -1,15 +1,16 @@
 ﻿using SwissTransport;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TransportApp
 {
+	//
+	//Methoden
+	//
+
+	
 	class DataGridViewFiller
 	{
+		//Near me  
 		public void FillDataGridNearMe(Stations stations, DataGridView dataGridView)
 		{
 			dataGridView.Rows.Clear();
@@ -22,7 +23,7 @@ namespace TransportApp
 			}
 		}
 
-
+		//Connections
 		public void FillDataGridConnections(Connections connections, DataGridView dataGridView)
 		{
 			dataGridView.Rows.Clear();
@@ -40,13 +41,13 @@ namespace TransportApp
 			}
 		}
 
+		//DepartureBoard
 		public void FillDataGridDepartureBoard(StationBoardRoot stationBoardRoot, DataGridView dataGridView)
 		{
 			dataGridView.Rows.Clear();
 			foreach (StationBoard stationBoard in stationBoardRoot.Entries)
 			{
 				dataGridView.Rows.Add(
-					stationBoard.Category,
 					stationBoard.To,
 					stationBoard.Name
 				);

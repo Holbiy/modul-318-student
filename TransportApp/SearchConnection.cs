@@ -1,12 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using  SwissTransport;
 
@@ -85,13 +77,13 @@ namespace TransportApp
 		private void comboBoxDeparture_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
-			AutoCompletion.AddSugesstions(comboBoxDeparture);
+			AutoCompletion.AddSuggestions(comboBoxDeparture);
 		}
 
 		private void comboBoxArrival_TextChanged(object sender, EventArgs e)
 		{
 			AutoCompletion autoCompletion = new AutoCompletion();
-			AutoCompletion.AddSugesstions(comboBoxArrival);
+			AutoCompletion.AddSuggestions(comboBoxArrival);
 		}
 	}
 }

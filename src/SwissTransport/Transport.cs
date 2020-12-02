@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace SwissTransport
@@ -11,78 +13,122 @@ namespace SwissTransport
 	    {
 		    x = x.Replace(",", ".");
 		    y = y.Replace(",", ".");
-            var request = CreateWebRequest("http://transport.opendata.ch/v1/locations?x=" + x + "&y=" +y + "&type=station");
-		    var response = request.GetResponse();
-		    var responseStream = response.GetResponseStream();
-		   
-
-            if (responseStream != null)
+			WebRequest request = null;
+		    WebResponse response = null;
+		    Stream responseStream = null;
+			try
+            {
+	            request = CreateWebRequest("http://transport.opendata.ch/v1/locations?x=" + x + "&y=" + y + "&type=station");
+                response = request.GetResponse();
+	            responseStream = response.GetResponseStream();
+            }
+		    catch
 		    {
-			    var message = new StreamReader(responseStream).ReadToEnd();
-			    var stations = JsonConvert.DeserializeObject<Stations>(message
-				    , new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-			    return stations;
-		    }
-		    return null;
+				MessageBox.Show("Stationen wegen Netzwerkfehler nicht aufrufbar.");
+				Stations stations = new Stations();
+				stations.StationList = new List<Station>();
+				return stations;
+			}
+			if (responseStream != null)
+			{
+				var message = new StreamReader(responseStream).ReadToEnd();
+				var stations = JsonConvert.DeserializeObject<Stations>(message
+					, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+				return stations;
+			}
+			return null;
         }
 
 
         public Stations GetStations(string query)
         {
-            query = System.Uri.EscapeDataString(query);
-            var request = CreateWebRequest("http://transport.opendata.ch/v1/locations?query=" + query + "");
-            
-            var response = request.GetResponse();
-            var responseStream = response.GetResponseStream();
-
-            if (responseStream != null)
+	        WebRequest request = null;
+	        WebResponse response = null;
+	        Stream responseStream = null;
+	        query = System.Uri.EscapeDataString(query);
+			try
+	        {
+		        request = CreateWebRequest("http://transport.opendata.ch/v1/locations?query=" + query + "");
+		        response = request.GetResponse();
+		        responseStream = response.GetResponseStream();
+	        }
+	        catch
             {
-                var message = new StreamReader(responseStream).ReadToEnd();
-                var stations = JsonConvert.DeserializeObject<Stations>(message
-                    , new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-                return stations;
+	            MessageBox.Show("Stationen wegen Netzwerkfehler nicht aufrufbar.");
+	            Stations stations = new Stations();
+				stations.StationList = new List<Station>();
+	            return stations;
             }
-
-            return null;
+			if (responseStream != null)
+			{
+				var message = new StreamReader(responseStream).ReadToEnd();
+				var stations = JsonConvert.DeserializeObject<Stations>(message
+					, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+				return stations;
+			}
+			return null;
         }
 
         public StationBoardRoot GetStationBoard(string station, string id)
         {
-            station = System.Uri.EscapeDataString(station);
-            id = System.Uri.EscapeDataString(id);
-            var request = CreateWebRequest("http://transport.opendata.ch/v1/stationboard?station=" + station + "&id=" + id);
-            var response = request.GetResponse();
-            var responseStream = response.GetResponseStream();
-
-            if (responseStream != null)
-            {
-                var readToEnd = new StreamReader(responseStream).ReadToEnd();
-                var stationboard =
-                    JsonConvert.DeserializeObject<StationBoardRoot>(readToEnd);
-                return stationboard;
-            }
-
-            return null;
+	        station = System.Uri.EscapeDataString(station);
+	        id = System.Uri.EscapeDataString(id);
+			WebRequest request = null;
+	        WebResponse response = null;
+	        Stream responseStream = null;
+			try
+	        {
+		        request = CreateWebRequest("http://transport.opendata.ch/v1/stationboard?station=" + station + "&id=" + id);
+		        response = request.GetResponse();
+		        responseStream = response.GetResponseStream();
+	        }
+	        catch
+	        {
+		        MessageBox.Show("Abfahrtstafel wegen Netzwerkfehler nicht aufrufbar.");
+				StationBoardRoot stationBoardRoot = new StationBoardRoot();
+				return stationBoardRoot;
+	        }
+			if (responseStream != null)
+			{
+				var readToEnd = new StreamReader(responseStream).ReadToEnd();
+				var stationboard =
+					JsonConvert.DeserializeObject<StationBoardRoot>(readToEnd);
+				return stationboard;
+			}
+			return null;
         }
 
         public Connections GetConnections(string fromStation, string toStation, string date, string time)
         {
-	        fromStation = Uri.EscapeDataString(fromStation);
 	        toStation = Uri.EscapeDataString(toStation);
 	        date = Uri.EscapeDataString(date);
 	        time = Uri.EscapeDataString(time);
-	        var request = CreateWebRequest("http://transport.opendata.ch/v1/connections?from=" + fromStation + "&to=" + toStation + "&date=" + date + "&time=" + time + "&limit=10");
-	        var response = request.GetResponse();
-	        var responseStream = response.GetResponseStream();
-	        if (responseStream != null)
+	        fromStation = Uri.EscapeDataString(fromStation);
+			WebRequest request = null;
+			WebResponse response = null;
+			Stream responseStream = null;
+			try
 	        {
-		        var readToEnd = new StreamReader(responseStream).ReadToEnd();
-		        var connections =
-			        JsonConvert.DeserializeObject<Connections>(readToEnd);
-		        return connections;
+		        request = CreateWebRequest("http://transport.opendata.ch/v1/connections?from=" + fromStation + "&to=" + toStation + "&date=" + date + "&time=" + time + "&limit=10");
+		        response = request.GetResponse();
+		        responseStream = response.GetResponseStream();
 	        }
-	        return null;
-        }
+			catch
+			{
+				MessageBox.Show("Verbindungen wegen Netzwerkfehler nicht aufrufbar.");
+				Connections connections = new Connections();
+				connections.ConnectionList = new List<Connection>();
+				return connections;
+			}
+			if (responseStream != null)
+			{
+				var readToEnd = new StreamReader(responseStream).ReadToEnd();
+				var connections =
+					JsonConvert.DeserializeObject<Connections>(readToEnd);
+				return connections;
+			}
+			return null;
+		}
 
         private static WebRequest CreateWebRequest(string url)
         {

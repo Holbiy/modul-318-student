@@ -7,37 +7,18 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using System.Net.Mail;
-using System.Net;
-
-
-
-
-
-
-
-
-//Probleme:
-//
-//Kein Netzwerk
-//Eingabe von Firmen
-//
-//
-
 
 namespace TransportApp
 {
 	public partial class main : Form
 	{
 		Transport _transport = new Transport();
-
 		public main()
 		{
 			InitializeComponent();
 			NavigationButton(ButtonNavigateConnections);
 			watcher.Start();
 		}
-
 
 		/*------------------------------------------*/
 		//					General					//
@@ -53,14 +34,13 @@ namespace TransportApp
 			var button = (Button) sender;
 			NavigationButton(button);
 		}
-
 		//Autocomplete
 		private void comboBoxAutocomplete_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode != Keys.Down && e.KeyCode != Keys.Up && e.KeyCode != Keys.Enter && e.KeyCode != Keys.Escape)
 			{
 				var combobox = (ComboBox)sender;
-				AutoCompletion.AddSugesstions(combobox);
+				AutoCompletion.AddSuggestions(combobox);
 			}
 		}
 
@@ -68,6 +48,7 @@ namespace TransportApp
 		//Methods
 		//
 
+		//Navigation
 		private void NavigationButton(Button button)
 		{
 			foreach (Panel panel in panelContent.Controls)
@@ -107,23 +88,19 @@ namespace TransportApp
 		//Events
 		//
 
-		//Key Pressdown
-
+		//Pressing Enter
 		private void comboBoxEnterConnections_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 				buttonConnections_Click(this, null);
 		}
-
 		private void textBoxEnterMail_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 				buttonMail_Click(this, null);
 		}
 
-
 		//Buttons
-
 		private void buttonSwitch_Click(object sender, EventArgs e)
 		{
 			string temp = comboBoxConnectionsArrival.Text;
@@ -169,19 +146,8 @@ namespace TransportApp
 			{
 				if (dataGridViewConnections.SelectedRows.Count != 0)
 				{
-					string message = "Verbindungen:%0D%0A";
-					int i = 1;
-					foreach (DataGridViewRow rows in dataGridViewConnections.SelectedRows)
-					{
-						message += "Verbindung " + i++ + ": ";
-						foreach (DataGridViewCell cell in rows.Cells)
-						{
-							message += cell.OwningColumn.HeaderText + " = " + cell.Value;
-							if (cell.ColumnIndex + 1 != rows.Cells.Count)
-								message += ", ";
-						}
-						message += "%0D%0A";
-					}
+					Mail mail = new Mail();
+					string message = mail.SelectedRowsToString(dataGridViewConnections);
 					Process.Start("mailto:" + textBoxMail.Text + "?subject=Verbindungen&body=" + message);
 				}
 				else
@@ -193,22 +159,7 @@ namespace TransportApp
 			{
 				MessageBox.Show("Keine E-Mail wurde angegeben.");
 			}
-			/*
-				SmtpClient client = new SmtpClient("smtp.gmail.com");
-				client.Port = 587;
-				client.EnableSsl = true;
-				client.DeliveryMethod = SmtpDeliveryMethod.Network;
-				client.Credentials = new NetworkCredential("transportapplikation@gmail.com", "transport123");
-
-				var mail = new MailMessage("transportapplikation@gmail.com", "dario.hollbach@outlook.com");
-				mail.Subject = "Nachricht";
-				mail.Body = mailBody;
-				mail.IsBodyHtml = true;
-				DataGridViewCell dataGridViewCell = new DataGridViewButtonCell();
-				dataGridViewCell.*/
 		}
-
-
 
 
 		/*------------------------------------------*/
@@ -219,7 +170,7 @@ namespace TransportApp
 		//Events
 		//
 
-		//Key Pressdown
+		//Pressing Enter
 		private void comboBoxEnterDepartureTable_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
@@ -227,7 +178,6 @@ namespace TransportApp
 		}
 
 		//Buttons
-
 		private void buttonShowDepartureBoard_Click(object sender, EventArgs e)
 		{
 			StationHandler stationHandler = new StationHandler();
@@ -237,6 +187,10 @@ namespace TransportApp
 				stationBoardRoot = _transport.GetStationBoard(comboBoxDepartureBoardDeparture.Text, "");
 				DataGridViewFiller dataGridViewFiller = new DataGridViewFiller();
 				dataGridViewFiller.FillDataGridDepartureBoard(stationBoardRoot, dataGridViewDepartureBoard);
+			}
+			else
+			{
+				MessageBox.Show("Station nicht gefunden.");
 			}
 		}
 
@@ -248,39 +202,41 @@ namespace TransportApp
 		//Events
 		//
 
+		//Pressing Enter
 		private void comboBoxEnterMaps_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 				buttonShowMap_Click(this, null);
 		}
 
+		//buttons
 		private void buttonShowMap_Click(object sender, EventArgs e)
 		{
 			StationHandler stationHandler = new StationHandler();
 			if (stationHandler.StationExists(comboBoxMapsStation.Text))
 			{
+				//change gMapControl
 				gMapControlStation.MapProvider = GMapProviders.GoogleMap;
 				gMapControlStation.DragButton = MouseButtons.Left;
 				gMapControlStation.Visible = true;
-
+				//position
 				Stations stations = new Stations();
 				stations = _transport.GetStations(comboBoxMapsStation.Text);
 				double x = stations.StationList[0].Coordinate.XCoordinate;
 				double y = stations.StationList[0].Coordinate.YCoordinate;
-
 				PointLatLng point = new PointLatLng(x, y);
-
 				gMapControlStation.Position = point;
-
 				//Marker
-
 				GMapMarker marker = new GMarkerGoogle(point, GMarkerGoogleType.red_pushpin);
 				GMapOverlay markers = new GMapOverlay("makers");
 				markers.Markers.Add(marker);
 				gMapControlStation.Overlays.Clear();
 				gMapControlStation.Overlays.Add(markers);
 			}
-			
+			else
+			{
+				MessageBox.Show("Station nicht gefunden.");
+			}
 		}
 
 		/*------------------------------------------*/
@@ -297,11 +253,12 @@ namespace TransportApp
 		//Events
 		//
 
+		//buttons
 		private void buttonShowNearMe_Click(object sender, EventArgs e)
 		{
 			if (watcher.Position.Location.IsUnknown)
 			{
-				MessageBox.Show("Aktueller Standord nicht verfügbar");
+				MessageBox.Show("Aktueller Standort nicht verfügbar");
 			}
 			else
 			{
