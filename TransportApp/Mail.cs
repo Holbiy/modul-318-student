@@ -9,6 +9,9 @@ namespace TransportApp
 {
 	class Mail
 	{
+		//
+		//Methoden
+		//
 		public string SelectedRowsToString(DataGridView dataGridView)
 		{
 			string message = "Verbindungen:%0D%0A";

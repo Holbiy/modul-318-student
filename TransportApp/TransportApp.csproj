@@ -67,18 +67,6 @@
   <ItemGroup>
     <Compile Include="AutoCompletion.cs" />
     <Compile Include="DataGridViewFiller.cs" />
-    <Compile Include="DepartureBoardcs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DepartureBoardcs.Designer.cs">
-      <DependentUpon>DepartureBoardcs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Home.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Home.Designer.cs">
-      <DependentUpon>Home.cs</DependentUpon>
-    </Compile>
     <Compile Include="Mail.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>
@@ -88,19 +76,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchConnection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SearchConnection.Designer.cs">
-      <DependentUpon>SearchConnection.cs</DependentUpon>
-    </Compile>
     <Compile Include="StationHandler.cs" />
-    <EmbeddedResource Include="DepartureBoardcs.resx">
-      <DependentUpon>DepartureBoardcs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Home.resx">
-      <DependentUpon>Home.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.cs</DependentUpon>
     </EmbeddedResource>
@@ -114,10 +90,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SearchConnection.resx">
-      <DependentUpon>SearchConnection.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -140,9 +112,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\img\arrows.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="img\arrows.png" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="img\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,21 +1,23 @@
-﻿using SwissTransport;
+﻿using System.Linq;
+using SwissTransport;
 
 namespace TransportApp
 {
 	class StationHandler
 	{
+		//
+		//Methods
+		//
 		public bool StationExists(string StationName)
 		{
 			Transport transport = new Transport();
 			Stations stations = new Stations();
-			stations= transport.GetStations(StationName);
-			foreach (Station station in stations.StationList)
+			stations = transport.GetStations(StationName);
+			if (stations.StationList.Count != 0)
 			{
-				if (station.Name == StationName)
-				{
-					return true;
-				}
+				return (stations.StationList.First().Name == StationName);
 			}
+
 			return false;
 		}
 	}

@@ -98,7 +98,7 @@ namespace SwissTransport
 			return null;
         }
 
-        public Connections GetConnections(string fromStation, string toStation, string date, string time)
+		public Connections GetConnections(string fromStation, string toStation, string date, string time)
         {
 	        toStation = Uri.EscapeDataString(toStation);
 	        date = Uri.EscapeDataString(date);
@@ -130,7 +130,9 @@ namespace SwissTransport
 			return null;
 		}
 
-        private static WebRequest CreateWebRequest(string url)
+       
+
+		private static WebRequest CreateWebRequest(string url)
         {
             var request = WebRequest.Create(url);
             var webProxy = WebRequest.DefaultWebProxy;
